@@ -4,8 +4,12 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 86400;
 
-export default async function TagPage({ params }: { params: { tag: string } }) {
-  const tagToFind = decodeURIComponent(params.tag);
+interface TagsPageProps {
+  params: Promise<{ tag: string }>;
+}
+
+export default async function TagPage({ params }: TagsPageProps) {
+  const { tag } = await params;
   const response = await fetchPublishedPosts();
 
   const allPosts = await Promise.all(
@@ -14,8 +18,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
   const filteredPosts = allPosts.filter(
     (post) =>
-      post &&
-      post.tags?.some((t) => t.toLowerCase() === tagToFind.toLowerCase()),
+      post && post.tags?.some((t) => t.toLowerCase() === tag.toLowerCase()),
   );
 
   if (filteredPosts.length === 0) return notFound();
@@ -28,7 +31,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
             Assunto Relacionado
           </span>
           <h1 className="font-serif text-5xl md:text-7xl text-garden-text font-light italic">
-            #{tagToFind}
+            #{tag}
           </h1>
         </header>
 

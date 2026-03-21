@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 86400; // 24 horas
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { category: string };
-}) {
-  const category = decodeURIComponent(params.category);
+interface CategoryPageProps {
+  params: Promise<{ category: string }>;
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category } = await params
   const response = await fetchPublishedPosts();
 
   // Buscamos os detalhes de cada post para filtrar pela categoria
