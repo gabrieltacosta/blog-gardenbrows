@@ -15,9 +15,9 @@ interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata(
-  { params }: PostPageProps,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const posts = await fetchPublishedPosts();
   const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
@@ -112,9 +112,9 @@ export default async function PostPage({ params }: PostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="max-w-7xl mx-auto prose dark:prose-invert">
+      <article className="max-w-6xl mx-auto prose dark:prose-invert">
         {post.coverImage && (
-          <div className="relative aspect-video w-full mb-8 rounded-lg overflow-hidden">
+          <div className="relative aspect-video w-full mb-8 overflow-hidden">
             <Image
               src={post.coverImage}
               alt={post.title}
