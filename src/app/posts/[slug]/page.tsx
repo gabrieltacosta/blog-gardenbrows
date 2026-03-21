@@ -88,14 +88,15 @@ export default async function PostPage({ params }: PostPageProps) {
     datePublished: new Date(post.date).toISOString(),
     author: {
       "@type": "Person",
-      name: post.author || "Guest Author",
+      name: post.author || "Carolina Costa", // Ajustado para o nome real dela
+      url: `${siteUrl}/sobre`, // Link para a página da Carol
     },
     publisher: {
       "@type": "Organization",
-      name: "Your Site Name",
+      name: "Garden Brows Studio", // Nome real do negócio
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo.png`,
+        url: `${siteUrl}/logo.png`, // Certifique-se que esse arquivo existe em /public
       },
     },
     mainEntityOfPage: {

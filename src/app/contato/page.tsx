@@ -1,5 +1,10 @@
 import { Instagram, Mail } from "lucide-react";
 
+export const metadata = {
+  title: "Agendamento e Concierge",
+  description: "Entre em contato com o Garden Brows Studio e agende seu momento de cuidado.",
+};
+
 export default function ContactPage() {
   return (
     <div className="bg-garden-dark min-h-screen pt-32 pb-24 px-6 md:px-12">

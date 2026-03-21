@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+export const metadata = {
+  title: "Sobre Carolina Costa",
+  description: "Conheça a trajetória de Carol Garden, sua filosofia de beleza e devoção.",
+};
+
 export default function AboutPage() {
   return (
     <div className="bg-garden-dark min-h-screen pt-32 pb-24 px-6 md:px-12">

@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
 });
 
-// const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +26,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Garden Brows | Por Carolina Costa",
-  description:
-    "Journal & Lifestyle por Carol Garden. Expert em sobrancelhas, Lash Lift e Micropigmentação. Um espaço de beleza, fé e autocuidado.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Garden Brows | Por Carolina Costa",
+    template: "%s | Garden Brows",
+  },
+  description: "Especialista em Sobrancelhas, Lash Lift e Micropigmentação Labial. Por Carol Garden, em São Paulo.",
+  keywords: ["Design de Sobrancelhas", "Lash Lift São Paulo", "Carolina Costa", "Carol Garden", "Micropigmentação Labial", "Beleza Católica"],
+  authors: [{ name: "Carolina Costa" }],
+  creator: "Carolina Costa",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: siteUrl,
+    siteName: "Garden Brows Studio",
+    title: "Garden Brows | Carolina Costa",
+    description: "Realçando a sua beleza natural com propósito e fé.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Garden Brows Studio",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
