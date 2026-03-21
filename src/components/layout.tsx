@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { ModeToggle } from "@/components/mode-toggle";
 import Header from "./header";
 
 
@@ -33,7 +32,6 @@ export default function Layout({ children }: LayoutProps) {
         >
           Política de Privacidade
         </Link>
-        <ModeToggle />
       </div>
       </footer>
     </div>
