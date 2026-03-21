@@ -4,22 +4,50 @@ import { fetchPublishedPosts, getPost } from "@/lib/notion";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
-  // 1. Buscamos todos os posts do Notion para gerar as URLs dinâmicas
   const response = await fetchPublishedPosts();
   const allPosts = await Promise.all(
     response.results.map((post) => getPost(post.id)),
   );
 
-  const postEntries: MetadataRoute.Sitemap = allPosts
-    .filter((post) => post !== null)
-    .map((post) => ({
-      url: `${baseUrl}/posts/${post!.slug}`,
-      lastModified: new Date(post!.date),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    }));
+  const activePosts = allPosts.filter((post) => post !== null);
 
-  // 2. Definimos as páginas estáticas principais
+  // 1. URLs dos Posts
+  const postEntries: MetadataRoute.Sitemap = activePosts.map((post) => ({
+    url: `${baseUrl}/posts/${post!.slug}`,
+    lastModified: new Date(post!.date),
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  // 2. URLs de Categorias - Adicionado .filter(Boolean) para remover undefined
+  const categories = Array.from(
+    new Set(activePosts.map((p) => p?.category?.toLowerCase()).filter(Boolean)),
+  );
+
+  const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
+    url: `${baseUrl}/categorias/${encodeURIComponent(cat!)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  // 3. URLs de Tags - Adicionado .filter(Boolean) para garantir que não existam tags vazias
+  const tags = Array.from(
+    new Set(
+      activePosts
+        .flatMap((p) => p?.tags?.map((t) => t.toLowerCase()) || [])
+        .filter(Boolean),
+    ),
+  );
+
+  const tagEntries: MetadataRoute.Sitemap = tags.map((tag) => ({
+    url: `${baseUrl}/tags/${encodeURIComponent(tag!)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  // 4. Páginas estáticas
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -53,5 +81,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  return [...staticPages, ...postEntries];
+  return [...staticPages, ...postEntries, ...categoryEntries, ...tagEntries];
 }

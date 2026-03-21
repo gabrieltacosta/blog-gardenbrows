@@ -7,6 +7,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -40,16 +41,14 @@ const Header = () => {
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-500",
         isScrolled
-          ? "py-4 bg-garden-dark/80 backdrop-blur-lg border-b border-garden-text/5"
-          : "py-8 bg-transparent",
+          ? "h-20 bg-garden-dark/90 backdrop-blur-lg border-b border-garden-text/5"
+          : "h-28 bg-transparent", // Altura maior no topo, mas sem exageros
       )}
     >
-      <nav className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <nav className="h-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo - Agora com hover suave */}
-        <div className="flex">
-          <Link href="/" className="hover:opacity-70 transition-opacity">
-            <Logo />
-          </Link>
+        <div className="flex max-w-[180px] md:max-w-none">
+          <Logo light={true} className="scale-[0.7] md:scale-90 origin-left" />
         </div>
 
         <div className="flex items-center gap-8">
@@ -66,32 +65,57 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="bg-garden-dark border-garden-text/10 text-garden-text w-[300px]"
+                className="bg-garden-dark border-none text-garden-text w-full flex flex-col justify-between p-8 md:p-12"
               >
-                <SheetHeader className="mb-12">
-                  <SheetTitle className="font-serif italic text-2xl text-left text-garden-text font-light">
-                    Menu
-                  </SheetTitle>
+                {/* 1. ACESSIBILIDADE: O SheetHeader e SheetTitle agora estão aqui. 
+         Como usamos VisuallyHidden no componente base, eles não aparecem na tela, 
+         mas o erro do console some e o site fica acessível. */}
+                <SheetHeader>
+                  <SheetTitle>Menu de Navegação</SheetTitle>
+                  <SheetDescription>
+                    Explore as crônicas e procedimentos do Studio Garden Brows
+                  </SheetDescription>
                 </SheetHeader>
 
-                <div className="flex flex-col gap-8">
-                  {navLinks.map((link) => (
-                    <SheetClose key={link.name} asChild>
-                      <Link
-                        href={link.href}
-                        className="font-serif text-3xl font-light hover:italic transition-all"
-                      >
-                        {link.name}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                  <hr className="border-garden-text/10" />
+                {/* 2. O CONTEÚDO VISUAL (O que a cliente vê) */}
+                <div className="flex flex-col gap-12 mt-16">
+                  <div className="flex flex-col gap-2">
+                    <span className="font-sans text-[10px] tracking-[0.5em] uppercase text-garden-text/30">
+                      Navegação
+                    </span>
+                    {/* Aqui é um <h2> visual, não o SheetTitle técnico */}
+                    <h2 className="font-serif italic text-3xl text-garden-text font-light">
+                      Menu
+                    </h2>
+                  </div>
+
+                  <nav className="flex flex-col gap-6">
+                    {navLinks.map((link) => (
+                      <SheetClose key={link.name} asChild>
+                        <Link
+                          href={link.href}
+                          className="font-serif text-3xl md:text-4xl font-light hover:italic transition-all duration-500 border-b border-garden-text/5 pb-5 last:border-none"
+                        >
+                          {link.name}
+                        </Link>
+                      </SheetClose>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Footer do Menu - Redes e Contato */}
+                <div className="flex flex-col gap-8 pb-12">
+                  <div className="h-[1px] w-12 bg-garden-text/20" />
                   <Link
-                    href="https://instagram.com"
-                    className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-garden-text/50"
+                    href="https://instagram.com/acarolgarden"
+                    className="group flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-garden-text/40 hover:text-garden-text transition-colors"
                   >
-                    <Instagram className="w-4 h-4" /> Instagram
+                    <Instagram className="w-4 h-4 stroke-[1px]" />
+                    <span>Instagram</span>
                   </Link>
+                  <p className="font-sans text-[10px] uppercase tracking-widest text-garden-text/20">
+                    Studio Garden Brows © 2026
+                  </p>
                 </div>
               </SheetContent>
             </Sheet>

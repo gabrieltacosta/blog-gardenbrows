@@ -17,7 +17,7 @@ export default function AboutPage() {
               src="/carol-garden.jpg" // Foto da Carolina
               alt="Carolina Costa - Carol Garden"
               fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+              className="object-cover md:grayscale hover:grayscale-0 transition-all duration-1000"
             />
           </div>
           

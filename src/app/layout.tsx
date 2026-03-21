@@ -1,29 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
+import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-serif",
+  style: ["italic", "normal"],
+  weight: ["400", "700"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -31,8 +28,16 @@ export const metadata: Metadata = {
     default: "Garden Brows | Por Carolina Costa",
     template: "%s | Garden Brows",
   },
-  description: "Especialista em Sobrancelhas, Lash Lift e Micropigmentação Labial. Por Carol Garden, em São Paulo.",
-  keywords: ["Design de Sobrancelhas", "Lash Lift São Paulo", "Carolina Costa", "Carol Garden", "Micropigmentação Labial", "Beleza Católica"],
+  description:
+    "Especialista em Sobrancelhas, Lash Lift e Micropigmentação Labial. Por Carol Garden, em São Paulo.",
+  keywords: [
+    "Design de Sobrancelhas",
+    "Lash Lift São Paulo",
+    "Carolina Costa",
+    "Carol Garden",
+    "Micropigmentação Labial",
+    "Beleza Católica",
+  ],
   authors: [{ name: "Carolina Costa" }],
   creator: "Carolina Costa",
   openGraph: {
@@ -65,17 +70,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={cn(
-        "h-full",
-        "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        playfair.variable,
-        inter.variable,
-      )}
+      className={cn(playfair.variable, montserrat.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col" cz-shortcut-listen="true">
+      <body
+        className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
+        cz-shortcut-listen="true"
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

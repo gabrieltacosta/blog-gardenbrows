@@ -9,6 +9,7 @@ import { components } from "@/components/mdx-component";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { ptBR } from "date-fns/locale";
+import RelatedPosts from "@/components/RelatedPosts";
 
 export const revalidate = 86400; // 24 horas
 
@@ -113,7 +114,7 @@ export default async function PostPage({ params }: PostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="bg-garden-dark min-h-screen text-garden-text pb-24 pt-20">
+      <article className="bg-garden-dark min-h-screen text-garden-text pb-24 pt-10 md:pt-20">
         {/* Header Editorial */}
         <header className="pt-24 pb-12 px-6">
           <div className="max-w-4xl mx-auto text-center">
@@ -184,6 +185,16 @@ export default async function PostPage({ params }: PostPageProps) {
               ))}
             </div>
           </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-6 pb-24">
+          {/* Renderização do conteúdo do Notion aqui */}
+
+          {/* Adicione os posts relacionados ao final */}
+          <RelatedPosts
+            currentPostId={post.id}
+            category={post.category || ""}
+            tags={post.tags || []}
+          />
         </div>
       </article>
     </>

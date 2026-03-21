@@ -12,7 +12,7 @@ const featuredPost = {
 
 export default function Hero() {
   return (
-    <section className="min-h-dvh bg-garden-olive text-garden-text pt-32 pb-20 px-6 md:px-12">
+    <section className="min-h-dvh bg-garden-olive text-garden-text pt-32 md:pt-44 pb-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
