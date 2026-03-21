@@ -6,6 +6,8 @@ import { PageObjectResponse } from "@notionhq/client/";
 export const notion = new Client({ auth: process.env.NOTION_TOKEN });
 export const n2m = new NotionToMarkdown({ notionClient: notion });
 
+export const revalidate = 86400; // Revalida a cada 24 horas (em segundos)
+
 export interface Post {
   id: string;
   title: string;

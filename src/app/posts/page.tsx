@@ -1,6 +1,8 @@
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 
+export const revalidate = 86400; // 24 horas
+
 async function getPosts(): Promise<Post[]> {
   const posts = await fetchPublishedPosts();
   const allPosts = await Promise.all(

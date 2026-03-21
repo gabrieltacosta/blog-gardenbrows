@@ -3,6 +3,8 @@ import CategoryGrid from "@/components/CategoryGrid";
 import MainFeed from "@/components/MainFeed";
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 
+export const revalidate = 86400; // 24 horas
+
 async function getRecentPosts(): Promise<Post[]> {
   const response = await fetchPublishedPosts();
   // Buscamos apenas os detalhes dos 3 primeiros posts
