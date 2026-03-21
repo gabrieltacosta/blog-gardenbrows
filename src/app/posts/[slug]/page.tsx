@@ -4,7 +4,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
-import { ResolvingMetadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { calculateReadingTime } from "@/lib/utils";
 import { components } from "@/components/mdx-component";
@@ -18,7 +17,6 @@ interface PostPageProps {
 
 export async function generateMetadata(
   { params }: PostPageProps,
-  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { slug } = await params;
   const posts = await fetchPublishedPosts();
@@ -114,7 +112,7 @@ export default async function PostPage({ params }: PostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="max-w-3xl mx-auto prose dark:prose-invert">
+      <article className="max-w-7xl mx-auto prose dark:prose-invert">
         {post.coverImage && (
           <div className="relative aspect-video w-full mb-8 rounded-lg overflow-hidden">
             <Image

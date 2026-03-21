@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Clock, Calendar, ArrowUpRight } from "lucide-react";
+import { Clock, Calendar } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
