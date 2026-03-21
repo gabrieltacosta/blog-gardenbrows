@@ -1,34 +1,25 @@
+import Hero from "@/components/Hero";
+import CategoryGrid from "@/components/CategoryGrid";
+import MainFeed from "@/components/MainFeed";
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
-import PostCard from "@/components/post-card";
 
-async function getPosts(): Promise<Post[]> {
-  const posts = await fetchPublishedPosts();
-  const allPosts = await Promise.all(
-    posts.results.map((post) => getPost(post.id))
+async function getRecentPosts(): Promise<Post[]> {
+  const response = await fetchPublishedPosts();
+  // Buscamos apenas os detalhes dos 3 primeiros posts
+  const posts = await Promise.all(
+    response.results.slice(0, 3).map((post) => getPost(post.id)),
   );
-  return allPosts.filter((post): post is Post => post !== null);
+  return posts.filter((post): post is Post => post !== null);
 }
 
-export default async function Home() {
-  const posts = await getPosts();
+export default async function HomePage() {
+  const posts = await getRecentPosts();
 
   return (
-    <div>
-      <div className="max-w-2xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-4">
-          Bem-vindo ao Blog da Irmandade do Santíssimo Sacramento!
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Aqui mergulhamos juntos na riqueza da Eucaristia, fonte e centro da
-          vida cristã.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </div>
-    </div>
+    <main className="min-h-screen bg-garden-dark overflow-x-hidden">
+      <Hero />
+      <CategoryGrid />
+      <MainFeed posts={posts} />
+    </main>
   );
 }

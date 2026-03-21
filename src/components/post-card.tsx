@@ -3,100 +3,81 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Post, getWordCount } from "@/lib/notion";
-import { Badge } from "@/components/ui/badge";
 import { calculateReadingTime } from "@/lib/utils";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Clock, Calendar } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import { components } from "./mdx-component";
+import { cn } from "@/lib/utils";
 
 interface PostCardProps {
   post: Post;
+  className?: string;
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, className }: PostCardProps) {
   const wordCount = post.content ? getWordCount(post.content) : 0;
   const readingTime = calculateReadingTime(wordCount);
 
   return (
-    <Card className="group relative pt-0 overflow-hidden hover:shadow-xl transition-all duration-300 bg-card/50 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <Link
-        href={`/posts/${post.slug}`}
-        className="absolute inset-0 z-10"
+    <div className={cn("group flex flex-col gap-5 bg-transparent", className)}>
+      {/* Container da Imagem com Estética de Portal (Arco) */}
+      <Link 
+        href={`/posts/${post.slug}`} 
         aria-label={post.title}
-      />
-      <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
+        className="relative aspect-[3/4] w-full overflow-hidden rounded-t-full border border-garden-text/5 bg-garden-olive/5"
+      >
         {post.coverImage ? (
           <Image
             src={post.coverImage}
             alt={post.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover grayscale-[20%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+            sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-muted/80" />
+          <div className="flex h-full w-full items-center justify-center bg-garden-olive/10">
+            <span className="font-serif text-4xl opacity-10 italic">G</span>
+          </div>
         )}
+        
+        {/* Badge de Categoria Minimalista sobre a imagem */}
         {post.category && (
-          <div className="absolute top-4 left-4 z-20">
-            <Badge
-              variant="secondary"
-              className="backdrop-blur-sm bg-background/80 shadow-sm"
-            >
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 overflow-hidden">
+            <span className="bg-garden-dark/60 px-4 py-1.5 text-[9px] uppercase tracking-[0.2em] text-garden-text backdrop-blur-md">
               {post.category}
-            </Badge>
+            </span>
+          </div>
+        )}
+      </Link>
+
+      {/* Conteúdo Textual */}
+      <div className="flex flex-col gap-3 px-1 text-center items-center">
+        {/* Metadata sem ícones para visual mais limpo */}
+        <div className="flex items-center gap-3 font-sans text-[10px] uppercase tracking-widest text-garden-text/40">
+          <time>{format(new Date(post.date), "dd MMM yyyy", { locale: ptBR })}</time>
+          <span className="h-1 w-1 rounded-full bg-garden-text/20" />
+          <span>{readingTime}</span>
+        </div>
+
+        <Link href={`/posts/${post.slug}`}>
+          <h2 className="font-serif text-2xl font-light leading-tight text-garden-text group-hover:italic transition-all duration-300">
+            {post.title}
+          </h2>
+        </Link>
+
+        {/* Descrição curta e elegante */}
+        <p className="line-clamp-2 font-sans text-sm font-light leading-relaxed text-garden-text/60">
+          {post.description}
+        </p>
+
+        {/* Tags sutilmente apresentadas */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            {post.tags.slice(0, 3).map((tag) => (
+              <span key={tag} className="text-[9px] text-garden-text/30 uppercase tracking-tighter">
+                #{tag}
+              </span>
+            ))}
           </div>
         )}
       </div>
-      <CardHeader className="space-y-2">
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4" />
-            <span>
-              {format(new Date(post.date), "dd MMM, yyyy", { locale: ptBR })}
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4" />
-            <span>{readingTime}</span>
-          </div>
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-            {post.title}
-          </h2>
-        </div>
-
-        <ReactMarkdown
-          components={components}
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
-        >
-          {post.description}
-        </ReactMarkdown>
-      </CardHeader>
-      <CardContent>
-        {post.author && (
-          <p className="text-sm text-muted-foreground">Por {post.author}</p>
-        )}
-      </CardContent>
-      {post.tags && post.tags.length > 0 && (
-        <CardFooter>
-          <div className="flex gap-2 flex-wrap">
-            {post.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="bg-background/80">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        </CardFooter>
-      )}
-    </Card>
+    </div>
   );
 }

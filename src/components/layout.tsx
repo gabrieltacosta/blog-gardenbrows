@@ -1,15 +1,12 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import Header from "./header";
-
+import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -26,13 +23,13 @@ export default function Layout({ children }: LayoutProps) {
           </p>
         </div>
         <div className="flex items-center gap-4">
-        <Link
-          href="/privacy"
-          className="text-muted-foreground text-xs md:text-sm italic hover:underline ml-2"
-        >
-          Política de Privacidade
-        </Link>
-      </div>
+          <Link
+            href="/privacy"
+            className="text-muted-foreground text-xs md:text-sm italic hover:underline ml-2"
+          >
+            Política de Privacidade
+          </Link>
+        </div>
       </footer>
     </div>
   );

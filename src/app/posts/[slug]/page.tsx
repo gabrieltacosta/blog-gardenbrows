@@ -4,7 +4,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
-import { Badge } from "@/components/ui/badge";
 import { calculateReadingTime } from "@/lib/utils";
 import { components } from "@/components/mdx-component";
 import remarkGfm from "remark-gfm";
@@ -68,6 +67,7 @@ export async function generateMetadata({
   };
 }
 
+
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   const posts = await fetchPublishedPosts();
@@ -75,9 +75,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const post = allPosts.find((p) => p?.slug === slug);
   const wordCount = post?.content ? getWordCount(post.content) : 0;
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -108,13 +106,35 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <>
-      <script
+    <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="max-w-6xl mx-auto prose dark:prose-invert">
+    
+    <article className="bg-garden-dark min-h-screen text-garden-text pb-24 pt-20">
+      {/* Header Editorial */}
+      <header className="pt-24 pb-12 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-garden-text/40 mb-8 font-sans">
+             <span>{post.category || "Lifestyle"}</span>
+             <span className="w-1 h-1 rounded-full bg-garden-text/20"></span>
+             <time>{format(new Date(post.date), "dd MMMM, yyyy", { locale: ptBR })}</time>
+          </div>
+
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-8">
+            {post.title}
+          </h1>
+
+          <div className="flex flex-wrap justify-center gap-3 mb-12 italic font-serif text-garden-text/60">
+             {post.author && <span>Por {post.author}</span>}
+             <span className="not-italic opacity-30">•</span>
+             <span>{calculateReadingTime(wordCount)} de leitura</span>
+          </div>
+        </div>
+
+        {/* Imagem de Capa com moldura estilo Portfólio (Arco) */}
         {post.coverImage && (
-          <div className="relative aspect-video w-full mb-8 overflow-hidden">
+          <div className="max-w-6xl mx-auto relative aspect-[21/9] md:aspect-[21/7] overflow-hidden rounded-t-[100px] md:rounded-t-[200px] border-x border-t border-garden-text/10">
             <Image
               src={post.coverImage}
               alt={post.title}
@@ -124,35 +144,15 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </div>
         )}
+      </header>
 
-        <header className="mb-8">
-          <div className="flex items-center gap-4 text-muted-foreground mb-4">
-            <time>
-              {format(new Date(post.date), "dd MMMM, yyyy", { locale: ptBR })}
-            </time>
-            {post.author && <span>Por {post.author}</span>}
-            <span>{calculateReadingTime(wordCount)}</span>
-            <span>{wordCount} palavras</span>
-          </div>
-
-          <h1 className="text-4xl font-bold mb-4 text-foreground">
-            {post.title}
-          </h1>
-
-          <div className="flex gap-4 mb-4">
-            {post.category && (
-              <Badge variant="secondary">{post.category}</Badge>
-            )}
-            {post.tags &&
-              post.tags.map((tag) => (
-                <Badge key={tag} variant="outline">
-                  {tag}
-                </Badge>
-              ))}
-          </div>
-        </header>
-
-        <div className="max-w-none">
+      {/* Conteúdo do Artigo */}
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="prose prose-invert prose-garden max-w-none 
+          prose-headings:font-serif prose-headings:font-light
+          prose-p:font-sans prose-p:text-garden-text/80 prose-p:leading-relaxed
+          prose-strong:text-garden-text prose-strong:font-semibold
+          prose-img:rounded-xl">
           <ReactMarkdown
             components={components}
             remarkPlugins={[remarkGfm]}
@@ -161,7 +161,20 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.content}
           </ReactMarkdown>
         </div>
-      </article>
+
+        {/* Footer do Post */}
+        <div className="mt-20 pt-12 border-t border-garden-text/10 flex flex-col items-center gap-6">
+           <p className="font-serif italic text-lg text-garden-text/60">Gostou dessa leitura?</p>
+           <div className="flex gap-4">
+              {post.tags?.map((tag) => (
+                <span key={tag} className="text-[10px] uppercase tracking-widest border border-garden-text/20 px-4 py-2 rounded-full hover:bg-garden-text hover:text-garden-dark transition-all">
+                  #{tag}
+                </span>
+              ))}
+           </div>
+        </div>
+      </div>
+    </article>
     </>
   );
 }

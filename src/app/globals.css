@@ -42,6 +42,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-garden-olive: oklch(25.68% 0.018 126.5); /* #1b1f13 */
+  --color-garden-dark: oklch(14.5% 0 0); /* #0a0a0a */
+  --color-garden-text: oklch(96.7% 0.001 286.4); /* Off-white */
+  --font-serif: var(--font-serif);
+  --aspect-portrait: 3 / 4;
+  --aspect-landscape: 16 / 9;
 }
 
 :root {
