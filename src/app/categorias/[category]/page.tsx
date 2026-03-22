@@ -5,6 +5,12 @@ import { unstable_cache } from "next/cache";
 
 export const revalidate = 86400; // 24 horas
 
+interface CategoryPageProps {
+  params: Promise<{
+    category: string;
+  }>;
+}
+
 const getCachedPublishedPosts = unstable_cache(
   async () => fetchPublishedPosts(),
   ["published-posts"],
@@ -13,19 +19,22 @@ const getCachedPublishedPosts = unstable_cache(
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
-  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
-  const categories = new Set(allPosts.map((p) => p?.category).filter(Boolean));
-  return Array.from(categories).map((c) => ({
-    category: c,
-  }));
+  const allPosts = await Promise.all(
+    posts.results.map((p) => getPost(p.id)),
+  );
+  const categories = new Set(
+    allPosts.map((p) => p?.category),
+  );
+  return Array.from(categories)
+    .filter((c): c is string => !!c)
+    .map((c) => ({
+      category: encodeURIComponent(c.toLowerCase()),
+    }));
 }
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: Promise<{ category: string }>;
-}) {
-  const category = (await params).category as string;
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category: categoryFromParams } = await params;
+  const category = decodeURIComponent(categoryFromParams);
   const response = await getCachedPublishedPosts();
 
   const allPosts = await Promise.all(

@@ -5,6 +5,11 @@ import { unstable_cache } from "next/cache";
 
 export const revalidate = 86400;
 
+interface TagsPageProps {
+  params: Promise<{
+    tag: string;
+  }>;
+}
 
 const getCachedPublishedPosts = unstable_cache(
   async () => fetchPublishedPosts(),
@@ -19,12 +24,13 @@ export async function generateStaticParams() {
   );
   const tags = new Set(allPosts.flatMap((p) => p?.tags || []));
   return Array.from(tags).map((t) => ({
-    tag: t,
+    tag: encodeURIComponent(t.toLowerCase()),
   }));
 }
 
-export default async function TagPage({ params }: {params: Promise<{tag: string}>}) {
-  const  tag  = (await params).tag as string;
+export default async function TagPage({ params }: TagsPageProps) {
+  const { tag: tagFromParams } = await params;
+  const tag = decodeURIComponent(tagFromParams);
   const response = await getCachedPublishedPosts();
 
   const allPosts = await Promise.all(

@@ -59,7 +59,7 @@ export default function PostCard({ post, className }: PostCardProps) {
           <span>{readingTime}</span>
         </div>
 
-        <Link href={`/posts/${post.slug}`}>
+        <Link href={`/posts/${encodeURIComponent(post.slug.toLowerCase())}`}>
           <h2 className="font-serif text-2xl font-light leading-tight text-garden-text group-hover:italic transition-all duration-300">
             {post.title}
           </h2>
