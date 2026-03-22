@@ -202,7 +202,7 @@ export default async function PostPage({ params }: {params: Promise<{slug: strin
             <p className="font-serif italic text-lg text-garden-text/60">
               Gostou dessa leitura?
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               {post.tags?.map((tag) => (
                 <Link key={tag} href={`/tags/${tag}`}>
                   <span className="text-[10px] uppercase tracking-widest border border-garden-text/20 px-4 py-2 rounded-full hover:bg-garden-text hover:text-garden-dark transition-all">

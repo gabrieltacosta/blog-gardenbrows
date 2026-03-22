@@ -74,10 +74,10 @@ export default function Footer() {
             </span>
             <div className="flex flex-col gap-3 font-sans text-[11px] uppercase tracking-[0.2em] text-garden-text/50">
               <p className="flex items-center justify-center md:justify-end gap-2">
-                <MapPin className="w-3 h-3" /> São Paulo, SP
+                <MapPin className="w-3 h-3" /> São José dos Campos, SP
               </p>
-              <p>Av. Exemplo de Luxo, 1000</p>
-              <p>Jardins — Sala 42</p>
+              <p>Av. Dr. Nelson d&apos;Ávila, 1837, Sala 509</p>
+              <p>Jardim São Dimas</p>
             </div>
           </div>
         </div>

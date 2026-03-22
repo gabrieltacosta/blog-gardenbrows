@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     default: "Garden Brows | Por Carolina Costa",
     template: "%s | Garden Brows",
   },
+  alternates: {
+    canonical: siteUrl,
+  },
   description:
     "Especialista em Sobrancelhas, Lash Lift e Micropigmentação Labial. Por Carol Garden, em São Paulo.",
   keywords: [
@@ -49,17 +52,39 @@ export const metadata: Metadata = {
     description: "Realçando a sua beleza natural com propósito e fé.",
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/logo-512x512.png",
+        width: 512,
+        height: 512,
         alt: "Garden Brows Studio",
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Studio Garden Brows",
+    description:
+      "Links oficiais do Studio Garden Brows. Acesse o e-book O Valor Que Comunica e fique por dentro das novidades de design de sobrancelhas e cílios.",
+    images: [`${siteUrl}/logo-192x192.png`],
+    creator: "@acarolgarden",
+    site: "@acarolgarden",
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  manifest: `${siteUrl}`,
 };
 
 export default function RootLayout({

@@ -60,7 +60,7 @@ export default function PostCard({ post, className }: PostCardProps) {
         </div>
 
         <Link href={`/posts/${encodeURIComponent(post.slug.toLowerCase())}`}>
-          <h2 className="font-serif text-2xl font-light leading-tight text-garden-text group-hover:italic transition-all duration-300">
+          <h2 className="font-serif text-2xl font-light leading-tight text-garden-text">
             {post.title}
           </h2>
         </Link>
@@ -71,7 +71,7 @@ export default function PostCard({ post, className }: PostCardProps) {
 
         {/* Tags - AGORA CLICÁVEIS */}
         {post.tags && post.tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="mt-2 flex flex-wrap justify-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500">
             {post.tags.slice(0, 3).map((tag) => (
               <Link 
                 key={tag} 

@@ -5,19 +5,19 @@ const categories = [
   {
     name: "Brows & Style",
     slug: "sobrancelhas",
-    imageUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "/escovinhas.webp",
     description: "Tendências e cuidados."
   },
   {
     name: "Lash Love",
-    slug: "cilios",
-    imageUrl: "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?q=80&w=800&auto=format&fit=crop",
+    slug: "Lash Lifting",
+    imageUrl: "/lashlifting.webp",
     description: "O segredo do olhar."
   },
   {
     name: "Self-Care",
     slug: "auto-cuidado",
-    imageUrl: "https://images.unsplash.com/photo-1552046122-03184de85e08?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "/Care.webp",
     description: "Rituais de bem-estar."
   },
   {
@@ -56,7 +56,7 @@ export default function CategoryGrid() {
           {categories.map((cat) => (
             <Link 
               key={cat.slug} 
-              href={`/categoria/${cat.slug}`}
+              href={`/categorias/${encodeURIComponent(cat.slug.toLowerCase())}`}
               className="group flex flex-col items-center text-center"
             >
               {/* Círculo com a Imagem - Efeito Portal */}
@@ -74,7 +74,7 @@ export default function CategoryGrid() {
               </div>
 
               {/* Texto da Categoria */}
-              <h3 className="font-serif text-xl text-garden-text mb-2 tracking-wide group-hover:italic transition-all">
+              <h3 className="font-serif text-xl text-garden-text mb-2 tracking-wide">
                 {cat.name}
               </h3>
               <p className="font-sans text-xs text-garden-text/50 uppercase tracking-tighter">

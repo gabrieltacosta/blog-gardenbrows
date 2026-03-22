@@ -4,12 +4,10 @@ import PostCard from "./post-card";
 import { Post } from "@/lib/notion";
 
 interface MainFeedProps {
-  posts: Post[];
+  recentPosts: Post[];
 }
 
-export default function MainFeed({ posts }: MainFeedProps) {
-  // Pegamos apenas os 3 primeiros para a Home
-  const recentPosts = posts.slice(0, 3);
+export default function MainFeed({ recentPosts }: MainFeedProps) {
 
   return (
     <section className="bg-garden-dark py-24 px-6 md:px-12">

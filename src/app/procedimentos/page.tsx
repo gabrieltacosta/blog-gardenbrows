@@ -11,25 +11,25 @@ const procedimentos = [
   {
     title: "Design de Sobrancelhas",
     description: "O mapeamento facial que respeita a sua estrutura óssea para um olhar harmônico e autêntico.",
-    image: "/procedimentos/design.jpg", // Certifique-se de ter as imagens na pasta public
+    image: "/designpremium.webp", // Certifique-se de ter as imagens na pasta public
     details: ["Mapeamento Geométrico", "Simetria Facial", "Pinçamento de Alta Precisão"]
   },
   {
     title: "Lash Lift",
     description: "Curvatura e hidratação dos seus cílios naturais, proporcionando um efeito de máscara sem extensões artificiais.",
-    image: "/procedimentos/lashlift.jpg",
+    image: "/lashlifting.webp",
     details: ["Efeito Curvado Natural", "Nutrição com Vitaminas", "Durabilidade de 6 a 8 semanas"]
   },
   {
     title: "Brow Lamination",
     description: "Alinhamento dos fios para sobrancelhas mais encorpadas, selvagens e modernas.",
-    image: "/procedimentos/lamination.jpg",
+    image: "/browlamination.webp",
     details: ["Controle de Fios Rebeldes", "Aspecto de Sobrancelha Cheia", "Estilo Editorial"]
   },
   {
     title: "Micropigmentação Labial",
     description: "Revitalização da cor e definição do contorno labial com aspecto de saúde e suavidade.",
-    image: "/procedimentos/labial.jpg",
+    image: "/softlips.webp",
     details: ["Efeito Batom Suave", "Correção de Assimetrias", "Pigmentos Hipoalergênicos"]
   }
 ];
@@ -48,7 +48,7 @@ export default function ProcedimentosPage() {
             Rituais de <br /> Transformação.
           </h1>
           <p className="font-sans text-lg text-garden-text/60 font-light leading-relaxed">
-            Cada procedimento na **Garden Brows** é uma oração feita com as mãos, focada em revelar a 
+            Cada procedimento na <span className="font-serif italic text-xl text-garden-text/40">Garden Brows</span> é uma oração feita com as mãos, focada em revelar a 
             perfeição que já existe em você.
           </p>
         </div>

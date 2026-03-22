@@ -59,6 +59,7 @@ const Header = () => {
                   variant="ghost"
                   size="icon"
                   className="text-garden-text"
+                  aria-label="Menu"
                 >
                   <MenuIcon className="w-6 h-6 stroke-[1px]" />
                 </Button>
@@ -109,6 +110,7 @@ const Header = () => {
                   <Link
                     href="https://instagram.com/acarolgarden"
                     className="group flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-garden-text/40 hover:text-garden-text transition-colors"
+                    target="_blank"
                   >
                     <Instagram className="w-4 h-4 stroke-[1px]" />
                     <span>Instagram</span>
@@ -136,12 +138,13 @@ const Header = () => {
               </ul>
 
               {/* Botão de Agendamento Sutil */}
-              <Button
+              {/* <Button
+                aria-label="Agendar"
                 variant="outline"
                 className="rounded-full border-garden-text/20 text-garden-text bg-transparent hover:bg-garden-text hover:text-garden-dark text-[9px] uppercase tracking-[0.2em] px-8 transition-all duration-500"
               >
                 Agendar
-              </Button>
+              </Button> */}
             </>
           )}
         </div>
