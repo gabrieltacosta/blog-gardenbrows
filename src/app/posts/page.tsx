@@ -1,6 +1,7 @@
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { Metadata } from "next";
+import { cache } from "react";
 
 export const revalidate = 3600; // 1 hora
 
@@ -38,16 +39,17 @@ export const metadata: Metadata = {
   },
 };
 
-async function getPosts(): Promise<Post[]> {
+const getCachedPosts = cache(async (): Promise<Post[]> => {
   const posts = await fetchPublishedPosts();
   const allPosts = await Promise.all(
     posts.results.map((post) => getPost(post.id)),
   );
   return allPosts.filter((post): post is Post => post !== null);
-}
+});
+
 
 export default async function Posts() {
-  const posts = await getPosts();
+  const posts = await getCachedPosts();
 
   return (
     <div className="bg-garden-dark min-h-screen pb-24 pt-32 px-6 md:px-12">
