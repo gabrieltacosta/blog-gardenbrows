@@ -3,7 +3,7 @@ import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 86400;
+export const revalidate = 3600; // 1 hora
 
 export async function generateMetadata({ params }: TagsPageProps) {
   const { tag: tagParam } = await params;

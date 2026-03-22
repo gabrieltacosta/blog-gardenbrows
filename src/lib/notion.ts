@@ -2,11 +2,10 @@
 import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import { PageObjectResponse } from "@notionhq/client/";
+import { generateSlug } from "@/lib/utils";
 
 export const notion = new Client({ auth: process.env.NOTION_TOKEN });
 export const n2m = new NotionToMarkdown({ notionClient: notion });
-
-export const revalidate = 86400; // Revalida a cada 24 horas (em segundos)
 
 export interface Post {
   id: string;
@@ -72,14 +71,12 @@ export async function getPost(pageId: string): Promise<Post | null> {
         .replace(/[#*`_]/g, "") // Limpa markdown da descrição
         .slice(0, 160) + (firstParagraph.length > 160 ? "..." : "");
 
+    const title = properties.Title?.title[0]?.plain_text || "untitled";
+
     return {
       id: page.id,
-      title: properties.Title?.title[0]?.plain_text || "Untitled",
-      slug:
-        properties.Title.title[0]?.plain_text
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-") // Replace any non-alphanumeric chars with dash
-          .replace(/^-+|-+$/g, "") || "untitled", // Remove leading/trailing dashes
+      title,
+      slug: generateSlug(title),
       coverImage: getCoverImageUrl(page),
       description,
       date:
@@ -87,7 +84,8 @@ export async function getPost(pageId: string): Promise<Post | null> {
       content: contentString,
       author:
         properties.Author?.people[0]?.name ||
-        properties.Author?.rich_text?.[0]?.plain_text || "Carolina Costa",
+        properties.Author?.rich_text?.[0]?.plain_text ||
+        "Carolina Costa",
       tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
       category: properties.Category?.select?.name || "Lifestyle",
     };

@@ -1,9 +1,4 @@
-import {
-  fetchPublishedPosts,
-  getPost,
-  getWordCount,
-  Post,
-} from "@/lib/notion";
+import { fetchPublishedPosts, getPost, getWordCount, Post } from "@/lib/notion";
 import { format } from "date-fns";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -18,15 +13,12 @@ import RelatedPosts from "@/components/RelatedPosts";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 86400;
-
+export const revalidate = 3600; // 1 hora
 
 const getCachedPost = unstable_cache(
   async (slug: string) => {
     const posts = await getCachedPublishedPosts();
-    const allPosts = await Promise.all(
-      posts.results.map((p) => getPost(p.id)),
-    );
+    const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
     return allPosts.find((p) => p?.slug === slug);
   },
   ["post"],
@@ -41,9 +33,7 @@ const getCachedPublishedPosts = unstable_cache(
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
-  const allPosts = await Promise.all(
-    posts.results.map((p) => getPost(p.id)),
-  );
+  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
   return allPosts
     .filter((p): p is Post => p !== null)
     .map((p) => ({
@@ -53,8 +43,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: {params: Promise<{slug: string}>}): Promise<Metadata> {
-  const  slug  = (await params).slug as string;
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const slug = (await params).slug as string;
   const post = await getCachedPost(slug);
 
   if (!post) {
@@ -69,12 +61,12 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     keywords: [
-      ...(post.tags || []),             
-      post.category || "Beleza",       
-      "Garden Brows Studio",           
-      "Carolina Costa",                
-      "Crônicas de Beleza",            
-      "Lifestyle"                      
+      ...(post.tags || []),
+      post.category || "Beleza",
+      "Garden Brows Studio",
+      "Carolina Costa",
+      "Crônicas de Beleza",
+      "Lifestyle",
     ],
     alternates: {
       canonical: `${siteUrl}/posts/${post.slug}`,
@@ -110,8 +102,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({ params }: {params: Promise<{slug: string}>}) {
-  const  slug  = (await params).slug as string;
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug as string;
   const post = await getCachedPost(slug);
   const wordCount = post?.content ? getWordCount(post.content) : 0;
 
@@ -177,7 +173,7 @@ export default async function PostPage({ params }: {params: Promise<{slug: strin
           </div>
 
           {post.coverImage && (
-            <div className="max-w-6xl mx-auto relative aspect-21/9 md:aspect-21/7 overflow-hidden rounded-t-[100px] md:rounded-t-[200px] border-x border-t border-garden-text/10">
+            <div className="max-w-6xl mx-auto relative aspect-16/9 overflow-hidden rounded-t-[100px] md:rounded-t-[200px] border-x border-t border-garden-text/10">
               <Image
                 src={post.coverImage}
                 alt={post.title}

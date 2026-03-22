@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -101,17 +100,9 @@ export default function RootLayout({
         className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
         cz-shortcut-listen="true"
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <Header />
-
-          <main className="grow">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Header />
+        <main className="grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );

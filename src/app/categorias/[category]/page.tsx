@@ -3,20 +3,20 @@ import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
 import { unstable_cache } from "next/cache";
 
-export const revalidate = 86400; // 24 horas
+export const revalidate = 3600; // 1 hora
 
 export async function generateMetadata({ params }: CategoryPageProps) {
   const { category: categoryParam } = await params;
   const category = decodeURIComponent(categoryParam);
-  
-  const response = await getCachedPublishedPosts(); 
+
+  const response = await getCachedPublishedPosts();
   const allPosts = await Promise.all(
     response.results.map((post) => getPost(post.id)),
   );
 
   // Filtro seguro para a categoria
   const filteredPosts = allPosts.filter(
-    (post) => post?.category?.toLowerCase() === category.toLowerCase()
+    (post) => post?.category?.toLowerCase() === category.toLowerCase(),
   );
 
   // Pegamos o primeiro post para usar a imagem no OpenGraph
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
       "Garden Brows",
       "Carolina Costa",
       "Estética Natural São Paulo",
-      "Beleza com Propósito"
+      "Beleza com Propósito",
     ],
     alternates: {
       canonical: `/categorias/${categoryParam}`,
@@ -58,12 +58,8 @@ const getCachedPublishedPosts = unstable_cache(
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
-  const allPosts = await Promise.all(
-    posts.results.map((p) => getPost(p.id)),
-  );
-  const categories = new Set(
-    allPosts.map((p) => p?.category),
-  );
+  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
+  const categories = new Set(allPosts.map((p) => p?.category));
   return Array.from(categories)
     .filter((c): c is string => !!c)
     .map((c) => ({

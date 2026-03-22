@@ -2,7 +2,7 @@ import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { Metadata } from "next";
 
-export const revalidate = 86400; // 24 horas
+export const revalidate = 3600; // 1 hora
 
 export const metadata: Metadata = {
   title: "Journal | Crônicas de Beleza e Autocuidado",
@@ -15,14 +15,15 @@ export const metadata: Metadata = {
     "Carolina Costa",
     "Blog de Estética",
     "Beleza Natural",
-    "Garden Brows Studio"
+    "Garden Brows Studio",
   ],
   alternates: {
     canonical: "/posts",
   },
   openGraph: {
     title: "Journal Garden Brows | Crônicas de Beleza",
-    description: "Um mergulho profundo em tendências e rituais de cuidado do nosso studio.",
+    description:
+      "Um mergulho profundo em tendências e rituais de cuidado do nosso studio.",
     url: "/posts",
     siteName: "Garden Brows Studio",
     images: [
