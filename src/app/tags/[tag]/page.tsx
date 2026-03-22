@@ -1,9 +1,13 @@
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 
 export const revalidate = 3600; // 1 hora
+
+const getCachedPublishedPosts = cache(
+  async () => fetchPublishedPosts(),
+);
 
 export async function generateMetadata({ params }: TagsPageProps) {
   const { tag: tagParam } = await params;
@@ -45,11 +49,7 @@ interface TagsPageProps {
   }>;
 }
 
-const getCachedPublishedPosts = unstable_cache(
-  async () => fetchPublishedPosts(),
-  ["published-posts"],
-  { revalidate: 86400, tags: ["posts"] },
-);
+
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();

@@ -11,25 +11,22 @@ import rehypeRaw from "rehype-raw";
 import { ptBR } from "date-fns/locale";
 import RelatedPosts from "@/components/RelatedPosts";
 import Link from "next/link";
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 
 export const revalidate = 3600; // 1 hora
 
-const getCachedPost = unstable_cache(
+const getCachedPublishedPosts = cache(
+  async () => fetchPublishedPosts(),
+);
+
+const getCachedPost = cache(
   async (slug: string) => {
     const posts = await getCachedPublishedPosts();
     const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
     return allPosts.find((p) => p?.slug === slug);
   },
-  ["post"],
-  { revalidate: 86400, tags: ["posts"] },
 );
 
-const getCachedPublishedPosts = unstable_cache(
-  async () => fetchPublishedPosts(),
-  ["published-posts"],
-  { revalidate: 86400, tags: ["posts"] },
-);
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
