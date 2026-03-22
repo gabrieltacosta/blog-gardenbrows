@@ -68,6 +68,14 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    keywords: [
+      ...(post.tags || []),             
+      post.category || "Beleza",       
+      "Garden Brows Studio",           
+      "Carolina Costa",                
+      "Crônicas de Beleza",            
+      "Lifestyle"                      
+    ],
     alternates: {
       canonical: `${siteUrl}/posts/${post.slug}`,
     },
@@ -81,7 +89,7 @@ export async function generateMetadata({
       tags: post.tags,
       images: [
         {
-          url: post.coverImage || `${siteUrl}/opengraph-image.png`,
+          url: post.coverImage || `${siteUrl}/logo-512x512.png`,
           width: 1200,
           height: 630,
           alt: post.title,

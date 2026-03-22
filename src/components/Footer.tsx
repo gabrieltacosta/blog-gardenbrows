@@ -4,7 +4,6 @@ import { Instagram, MapPin, Phone } from "lucide-react";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-
   return (
     <footer className="bg-garden-dark border-t border-garden-text/5 pt-24 pb-12 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -22,11 +21,14 @@ export default function Footer() {
                 href="https://instagram.com/acarolgarden"
                 target="_blank"
                 className="text-garden-text/40 hover:text-garden-text transition-colors"
+                aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5 stroke-[1px]" />
               </Link>
               <Link
-                href="#"
+                href="https://wa.me/5512996343610"
+                target="_blank"
+                aria-label="WhatsApp"
                 className="text-garden-text/40 hover:text-garden-text transition-colors"
               >
                 <Phone className="w-5 h-5 stroke-[1px]" />

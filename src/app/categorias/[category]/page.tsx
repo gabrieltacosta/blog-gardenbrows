@@ -5,6 +5,45 @@ import { unstable_cache } from "next/cache";
 
 export const revalidate = 86400; // 24 horas
 
+export async function generateMetadata({ params }: CategoryPageProps) {
+  const { category: categoryParam } = await params;
+  const category = decodeURIComponent(categoryParam);
+  
+  const response = await getCachedPublishedPosts(); 
+  const allPosts = await Promise.all(
+    response.results.map((post) => getPost(post.id)),
+  );
+
+  // Filtro seguro para a categoria
+  const filteredPosts = allPosts.filter(
+    (post) => post?.category?.toLowerCase() === category.toLowerCase()
+  );
+
+  // Pegamos o primeiro post para usar a imagem no OpenGraph
+  const firstPost = filteredPosts[0];
+
+  return {
+    title: `${category.charAt(0).toUpperCase() + category.slice(1)} | Garden Brows`,
+    description: `Descubra tudo sobre ${category} no Journal do Studio Garden Brows. Crônicas e tendências de beleza por Carolina Costa.`,
+    keywords: [
+      category,
+      `Dicas de ${category}`,
+      "Garden Brows",
+      "Carolina Costa",
+      "Estética Natural São Paulo",
+      "Beleza com Propósito"
+    ],
+    alternates: {
+      canonical: `/categorias/${categoryParam}`,
+    },
+    openGraph: {
+      title: `Categoria: ${category} | Garden Brows`,
+      description: `Explorar conteúdos exclusivos sobre ${category}.`,
+      images: [firstPost?.coverImage || ""],
+    },
+  };
+}
+
 interface CategoryPageProps {
   params: Promise<{
     category: string;

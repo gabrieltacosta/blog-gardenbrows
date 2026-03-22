@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. URLs dos Posts
   const postEntries: MetadataRoute.Sitemap = activePosts.map((post) => ({
     url: `${baseUrl}/posts/${post!.slug}`,
-    lastModified: new Date(post!.date),
+    lastModified: post?.date ? new Date(post!.date) : new Date(),
     changeFrequency: "weekly",
     priority: 0.7,
   }));
@@ -25,9 +25,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${baseUrl}/categorias/${encodeURIComponent(cat!)}`,
+    url: `${baseUrl}/categorias/${encodeURIComponent(cat!.toLowerCase())}`,
     lastModified: new Date(),
-    changeFrequency: "monthly",
+    changeFrequency: "weekly",
     priority: 0.5,
   }));
 
@@ -41,9 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const tagEntries: MetadataRoute.Sitemap = tags.map((tag) => ({
-    url: `${baseUrl}/tags/${encodeURIComponent(tag!)}`,
+    url: `${baseUrl}/tags/${encodeURIComponent(tag!.toLowerCase())}`,
     lastModified: new Date(),
-    changeFrequency: "monthly",
+    changeFrequency: "weekly",
     priority: 0.5,
   }));
 
@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/posts`,

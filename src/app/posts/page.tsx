@@ -1,7 +1,41 @@
 import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
+import { Metadata } from "next";
 
 export const revalidate = 86400; // 24 horas
+
+export const metadata: Metadata = {
+  title: "Journal | Crônicas de Beleza e Autocuidado",
+  description:
+    "Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
+  keywords: [
+    "Journal de Beleza",
+    "Dicas de Lash Lift",
+    "Sobrancelhas São Paulo",
+    "Carolina Costa",
+    "Blog de Estética",
+    "Beleza Natural",
+    "Garden Brows Studio"
+  ],
+  alternates: {
+    canonical: "/posts",
+  },
+  openGraph: {
+    title: "Journal Garden Brows | Crônicas de Beleza",
+    description: "Um mergulho profundo em tendências e rituais de cuidado do nosso studio.",
+    url: "/posts",
+    siteName: "Garden Brows Studio",
+    images: [
+      {
+        url: "/logo-512x512.png", // Ou uma imagem específica que represente o blog
+        width: 1200,
+        height: 630,
+        alt: "Journal Garden Brows",
+      },
+    ],
+    type: "website",
+  },
+};
 
 async function getPosts(): Promise<Post[]> {
   const posts = await fetchPublishedPosts();
