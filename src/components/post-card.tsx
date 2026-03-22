@@ -16,9 +16,9 @@ export default function PostCard({ post, className }: PostCardProps) {
   const readingTime = calculateReadingTime(wordCount);
 
   return (
-    <div className={cn("group flex flex-col gap-5 bg-transparent", className)}>
+    <div className={cn("group flex flex-col gap-5 bg-transparent transition-all duration-300 overflow-hidden", className)}>
       {/* Container da Imagem com Estética de Portal (Arco) */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-t-full border border-garden-text/5 bg-garden-olive/5">
+      <div className="relative aspect-portrait w-full overflow-hidden rounded-t-full border border-garden-text/5 bg-garden-olive/5">
         <Link 
           href={`/posts/${post.slug}`} 
           aria-label={post.title}
@@ -29,7 +29,7 @@ export default function PostCard({ post, className }: PostCardProps) {
               src={post.coverImage}
               alt={post.title}
               fill
-              className="object-cover grayscale-[20%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+              className="object-cover grayscale-20 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
               sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
             />
           ) : (

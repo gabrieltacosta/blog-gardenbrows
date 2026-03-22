@@ -58,12 +58,12 @@ export default function ProcedimentosPage() {
           {procedimentos.map((proc, index) => (
             <div key={proc.title} className="group flex flex-col gap-8">
               {/* Moldura de Arco sutil no topo das fotos */}
-              <div className="relative aspect-[4/5] overflow-hidden rounded-t-[200px] border border-garden-text/5 bg-garden-olive/5">
+              <div className="relative aspect-4/5 overflow-hidden rounded-t-[200px] border border-garden-text/5 bg-garden-olive/5">
                 <Image 
                   src={proc.image}
                   alt={proc.title}
                   fill
-                  className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                  className="object-cover grayscale-30 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                 />
               </div>
 
@@ -73,7 +73,7 @@ export default function ProcedimentosPage() {
                   <h2 className="font-serif text-3xl text-garden-text font-light">{proc.title}</h2>
                 </div>
                 
-                <p className="font-sans text-sm text-garden-text/60 leading-relaxed font-light min-h-[60px]">
+                <p className="font-sans text-sm text-garden-text/60 leading-relaxed font-light min-h-15">
                   {proc.description}
                 </p>
 

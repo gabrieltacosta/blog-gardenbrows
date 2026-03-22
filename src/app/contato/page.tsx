@@ -31,7 +31,7 @@ export default function ContactPage() {
 
           <div className="flex flex-col gap-2">
             <span className="text-[10px] uppercase tracking-widest text-garden-text/30">Fale Conosco</span>
-            <p className="font-serif text-xl text-garden-text/80 text-primary hover:underline">
+            <p className="font-serif text-xl text-garden-text/80 hover:underline">
               (11) 99999-9999
             </p>
             <p className="text-sm text-garden-text/50 font-light italic">Disponível via WhatsApp</p>

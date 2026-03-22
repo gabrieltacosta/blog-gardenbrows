@@ -1,16 +1,31 @@
 import { fetchPublishedPosts, getPost } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 
 export const revalidate = 86400;
 
-interface TagsPageProps {
-  params: Promise<{ tag: string }>;
+
+const getCachedPublishedPosts = unstable_cache(
+  async () => fetchPublishedPosts(),
+  ["published-posts"],
+  { revalidate: 86400, tags: ["posts"] },
+);
+
+export async function generateStaticParams() {
+  const posts = await getCachedPublishedPosts();
+  const allPosts = await Promise.all(
+    posts.results.map((p) => getPost(p.id)),
+  );
+  const tags = new Set(allPosts.flatMap((p) => p?.tags || []));
+  return Array.from(tags).map((t) => ({
+    tag: t,
+  }));
 }
 
-export default async function TagPage({ params }: TagsPageProps) {
-  const { tag } = await params;
-  const response = await fetchPublishedPosts();
+export default async function TagPage({ params }: {params: Promise<{tag: string}>}) {
+  const  tag  = (await params).tag as string;
+  const response = await getCachedPublishedPosts();
 
   const allPosts = await Promise.all(
     response.results.map((post) => getPost(post.id)),

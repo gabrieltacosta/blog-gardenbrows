@@ -1,18 +1,33 @@
 import { fetchPublishedPosts, getPost } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 
 export const revalidate = 86400; // 24 horas
 
-interface CategoryPageProps {
-  params: Promise<{ category: string }>;
+const getCachedPublishedPosts = unstable_cache(
+  async () => fetchPublishedPosts(),
+  ["published-posts"],
+  { revalidate: 86400, tags: ["posts"] },
+);
+
+export async function generateStaticParams() {
+  const posts = await getCachedPublishedPosts();
+  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
+  const categories = new Set(allPosts.map((p) => p?.category).filter(Boolean));
+  return Array.from(categories).map((c) => ({
+    category: c,
+  }));
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = await params
-  const response = await fetchPublishedPosts();
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const category = (await params).category as string;
+  const response = await getCachedPublishedPosts();
 
-  // Buscamos os detalhes de cada post para filtrar pela categoria
   const allPosts = await Promise.all(
     response.results.map((post) => getPost(post.id)),
   );

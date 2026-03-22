@@ -12,7 +12,7 @@ export default function AboutPage() {
         
         {/* Seção 1: O Manifesto da Carolina */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-t-full border border-garden-text/10">
+          <div className="relative aspect-portrait overflow-hidden rounded-t-full border border-garden-text/10">
             <Image 
               src="/carol-garden.jpg" // Foto da Carolina
               alt="Carolina Costa - Carol Garden"
@@ -28,7 +28,7 @@ export default function AboutPage() {
             <h1 className="font-serif text-5xl md:text-7xl text-garden-text font-light italic leading-tight">
               Carolina <br /> Costa.
             </h1>
-            <div className="w-20 h-[1px] bg-garden-text/20"></div>
+            <div className="w-20 h-px bg-garden-text/20"></div>
             
             <p className="font-sans text-lg text-garden-text/70 leading-relaxed font-light italic">
               &ldquo;Tudo por Jesus, nada sem Maria.&rdquo;

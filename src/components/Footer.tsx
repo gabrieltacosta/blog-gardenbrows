@@ -4,6 +4,7 @@ import { Instagram, MapPin, Phone } from "lucide-react";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+
   return (
     <footer className="bg-garden-dark border-t border-garden-text/5 pt-24 pb-12 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -13,12 +14,13 @@ export default function Footer() {
             <h2 className="font-serif text-3xl text-garden-text tracking-tighter">
               Garden <span className="italic opacity-60">Brows</span>
             </h2>
-            <p className="font-sans text-xs uppercase tracking-[0.3em] text-garden-text/40 leading-loose max-w-[250px]">
+            <p className="font-sans text-xs uppercase tracking-[0.3em] text-garden-text/40 leading-loose max-w-62.5">
               Elevando a beleza natural através do olhar e do cuidado.
             </p>
             <div className="flex gap-6">
               <Link
-                href="https://instagram.com"
+                href="https://instagram.com/acarolgarden"
+                target="_blank"
                 className="text-garden-text/40 hover:text-garden-text transition-colors"
               >
                 <Instagram className="w-5 h-5 stroke-[1px]" />
@@ -82,10 +84,10 @@ export default function Footer() {
 
         {/* Linha Final de Copyright */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-garden-text/5 gap-6">
-          <p className="text-[9px] uppercase tracking-[0.4em] text-garden-text/20">
+          <p className="text-[9px] uppercase tracking-[0.4em] text-garden-text/50">
             © {currentYear} Garden Brows Studio. All rights reserved.
           </p>
-          <div className="flex gap-8 text-[9px] uppercase tracking-[0.4em] text-garden-text/20">
+          <div className="flex gap-8 text-[9px] uppercase tracking-[0.4em] text-garden-text/50">
             <Link
               href="/privacy"
               className="hover:text-garden-text transition-colors"
@@ -100,7 +102,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <div className="mt-8 text-center opacity-20">
+        <div className="mt-8 text-center opacity-50">
           <p className="font-serif italic text-[10px] text-garden-text tracking-widest">
             Ad Maiorem Dei Gloriam
           </p>

@@ -1,4 +1,9 @@
-import { fetchPublishedPosts, getPost, getWordCount } from "@/lib/notion";
+import {
+  fetchPublishedPosts,
+  getPost,
+  getWordCount,
+  Post,
+} from "@/lib/notion";
 import { format } from "date-fns";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -10,20 +15,47 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { ptBR } from "date-fns/locale";
 import RelatedPosts from "@/components/RelatedPosts";
+import Link from "next/link";
+import { unstable_cache } from "next/cache";
 
-export const revalidate = 86400; // 24 horas
+export const revalidate = 86400;
 
-interface PostPageProps {
-  params: Promise<{ slug: string }>;
+
+const getCachedPost = unstable_cache(
+  async (slug: string) => {
+    const posts = await getCachedPublishedPosts();
+    const allPosts = await Promise.all(
+      posts.results.map((p) => getPost(p.id)),
+    );
+    return allPosts.find((p) => p?.slug === slug);
+  },
+  ["post"],
+  { revalidate: 86400, tags: ["posts"] },
+);
+
+const getCachedPublishedPosts = unstable_cache(
+  async () => fetchPublishedPosts(),
+  ["published-posts"],
+  { revalidate: 86400, tags: ["posts"] },
+);
+
+export async function generateStaticParams() {
+  const posts = await getCachedPublishedPosts();
+  const allPosts = await Promise.all(
+    posts.results.map((p) => getPost(p.id)),
+  );
+  return allPosts
+    .filter((p): p is Post => p !== null)
+    .map((p) => ({
+      slug: p.slug,
+    }));
 }
 
 export async function generateMetadata({
   params,
-}: PostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const posts = await fetchPublishedPosts();
-  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
-  const post = allPosts.find((p) => p?.slug === slug);
+}: {params: Promise<{slug: string}>}): Promise<Metadata> {
+  const  slug  = (await params).slug as string;
+  const post = await getCachedPost(slug);
 
   if (!post) {
     return {
@@ -70,11 +102,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const { slug } = await params;
-  const posts = await fetchPublishedPosts();
-  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
-  const post = allPosts.find((p) => p?.slug === slug);
+export default async function PostPage({ params }: {params: Promise<{slug: string}>}) {
+  const  slug  = (await params).slug as string;
+  const post = await getCachedPost(slug);
   const wordCount = post?.content ? getWordCount(post.content) : 0;
 
   if (!post) notFound();
@@ -90,15 +120,15 @@ export default async function PostPage({ params }: PostPageProps) {
     datePublished: new Date(post.date).toISOString(),
     author: {
       "@type": "Person",
-      name: post.author || "Carolina Costa", // Ajustado para o nome real dela
-      url: `${siteUrl}/sobre`, // Link para a página da Carol
+      name: post.author || "Carolina Costa",
+      url: `${siteUrl}/sobre`,
     },
     publisher: {
       "@type": "Organization",
-      name: "Garden Brows Studio", // Nome real do negócio
+      name: "Garden Brows Studio",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo.png`, // Certifique-se que esse arquivo existe em /public
+        url: `${siteUrl}/logo.png`,
       },
     },
     mainEntityOfPage: {
@@ -115,14 +145,15 @@ export default async function PostPage({ params }: PostPageProps) {
       />
 
       <article className="bg-garden-dark min-h-screen text-garden-text pb-24 pt-10 md:pt-20">
-        {/* Header Editorial */}
         <header className="pt-24 pb-12 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-center items-center gap-4 text-[10px] tracking-[0.2em] uppercase text-garden-text/40 mb-8 font-sans">
               <span>{post.category || "Lifestyle"}</span>
               <span className="w-1 h-1 rounded-full bg-garden-text/20"></span>
               <time>
-                {format(new Date(post.date), "dd MMMM, yyyy", { locale: ptBR })}
+                {format(new Date(post.date), "dd MMMM, yyyy", {
+                  locale: ptBR,
+                })}
               </time>
             </div>
 
@@ -137,9 +168,8 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </div>
 
-          {/* Imagem de Capa com moldura estilo Portfólio (Arco) */}
           {post.coverImage && (
-            <div className="max-w-6xl mx-auto relative aspect-[21/9] md:aspect-[21/7] overflow-hidden rounded-t-[100px] md:rounded-t-[200px] border-x border-t border-garden-text/10">
+            <div className="max-w-6xl mx-auto relative aspect-21/9 md:aspect-21/7 overflow-hidden rounded-t-[100px] md:rounded-t-[200px] border-x border-t border-garden-text/10">
               <Image
                 src={post.coverImage}
                 alt={post.title}
@@ -151,7 +181,6 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
         </header>
 
-        {/* Conteúdo do Artigo */}
         <div className="max-w-3xl mx-auto px-6">
           <div
             className="prose prose-invert prose-garden max-w-none 
@@ -169,27 +198,22 @@ export default async function PostPage({ params }: PostPageProps) {
             </ReactMarkdown>
           </div>
 
-          {/* Footer do Post */}
           <div className="mt-20 pt-12 border-t border-garden-text/10 flex flex-col items-center gap-6">
             <p className="font-serif italic text-lg text-garden-text/60">
               Gostou dessa leitura?
             </p>
             <div className="flex gap-4">
               {post.tags?.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[10px] uppercase tracking-widest border border-garden-text/20 px-4 py-2 rounded-full hover:bg-garden-text hover:text-garden-dark transition-all"
-                >
-                  #{tag}
-                </span>
+                <Link key={tag} href={`/tags/${tag}`}>
+                  <span className="text-[10px] uppercase tracking-widest border border-garden-text/20 px-4 py-2 rounded-full hover:bg-garden-text hover:text-garden-dark transition-all">
+                    #{tag}
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
         </div>
         <div className="max-w-4xl mx-auto px-6 pb-24">
-          {/* Renderização do conteúdo do Notion aqui */}
-
-          {/* Adicione os posts relacionados ao final */}
           <RelatedPosts
             currentPostId={post.id}
             category={post.category || ""}

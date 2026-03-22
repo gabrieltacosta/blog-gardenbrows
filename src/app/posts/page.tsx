@@ -23,7 +23,7 @@ export default async function Posts() {
         <h1 className="font-serif text-5xl md:text-7xl text-garden-text font-light mb-6 italic">
           Crônicas de Beleza
         </h1>
-        <div className="w-20 h-[1px] bg-garden-text/20 mx-auto mb-8"></div>
+        <div className="w-20 h-px bg-garden-text/20 mx-auto mb-8"></div>
         <p className="text-lg text-garden-text/60 font-sans max-w-xl mx-auto font-light leading-relaxed">
           Um mergulho profundo em tendências, rituais de cuidado e o lifestyle
           do nosso studio.
