@@ -31,7 +31,7 @@ export default function Hero({ featuredPost }: HeroProps) {
               </span>
             </div>
 
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] tracking-tight">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl font-light leading-[1.1] tracking-tight">
               {featuredPost.title}
             </h1>
 

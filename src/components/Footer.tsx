@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Linha Final de Copyright */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-garden-text/5 gap-6">
           <p className="text-[9px] uppercase tracking-[0.4em] text-garden-text/50">
-            © {currentYear} Garden Brows Studio. All rights reserved.
+            © {currentYear} Garden Brows Studio&reg;. All rights reserved.
           </p>
           <div className="flex gap-8 text-[9px] uppercase tracking-[0.4em] text-garden-text/50">
             <Link

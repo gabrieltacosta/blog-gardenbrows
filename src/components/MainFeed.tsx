@@ -41,7 +41,7 @@ export default function MainFeed({ recentPosts }: MainFeedProps) {
 
         {/* Elemento Decorativo Sutil */}
         <div className="mt-24 flex justify-center">
-          <div className="w-[1px] h-20 bg-gradient-to-b from-garden-text/20 to-transparent"></div>
+          <div className="w-px h-20 bg-linear-to-b from-garden-text/20 to-transparent"></div>
         </div>
       </div>
     </section>

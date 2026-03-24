@@ -52,7 +52,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
 
   return {
     title: post.title,
@@ -110,7 +110,7 @@ export default async function PostPage({
 
   if (!post) notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
 
   const jsonLd = {
     "@context": "https://schema.org",

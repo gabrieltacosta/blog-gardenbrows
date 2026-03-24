@@ -41,14 +41,14 @@ const Header = () => {
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-500",
         isScrolled
-          ? "h-20 bg-garden-dark/90 backdrop-blur-lg border-b border-garden-text/5"
+          ? "h-24 bg-garden-dark/90 backdrop-blur-lg border-b border-garden-text/5"
           : "h-28 bg-transparent", // Altura maior no topo, mas sem exageros
       )}
     >
       <nav className="h-full max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo - Agora com hover suave */}
-        <div className="flex max-w-[180px] md:max-w-none">
-          <Logo light={true} className="scale-[0.7] md:scale-90 origin-left" />
+        <div className="flex max-w-45 md:max-w-none">
+          <Logo light={true} className="scale-[0.7] xl:scale-90 origin-left" />
         </div>
 
         <div className="flex items-center gap-8">
@@ -106,7 +106,7 @@ const Header = () => {
 
                 {/* Footer do Menu - Redes e Contato */}
                 <div className="flex flex-col gap-8 pb-12">
-                  <div className="h-[1px] w-12 bg-garden-text/20" />
+                  <div className="h-px w-12 bg-garden-text/20" />
                   <Link
                     href="https://instagram.com/acarolgarden"
                     className="group flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-garden-text/40 hover:text-garden-text transition-colors"

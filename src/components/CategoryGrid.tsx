@@ -66,7 +66,7 @@ export default function CategoryGrid() {
                     src={cat.imageUrl}
                     alt={cat.name}
                     fill
-                    className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                    className="object-cover grayscale-30 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                   />
                   {/* Overlay sutil que some no hover */}
                   <div className="absolute inset-0 bg-garden-olive/20 group-hover:bg-transparent transition-colors duration-500"></div>

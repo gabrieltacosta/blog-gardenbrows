@@ -25,30 +25,46 @@ export default function PrivacyPage() {
             outros sites que possuímos e operamos.
           </p>
 
-          <h2>2. Coleta de Dados</h2>
+          <h2>2. Coleta de Dados e Comentários</h2>
           <p>
             Solicitamos informações pessoais apenas quando realmente precisamos
             delas para lhe fornecer um serviço. Fazemo-lo por meios justos e
-            legais, com o seu conhecimento e consentimento. Também informamos
-            por que estamos coletando e como será usado.
+            legais, com o seu conhecimento e consentimento. 
+          </p>
+          <p>
+            <strong>Comentários:</strong> Quando os visitantes deixam comentários no blog, 
+            coletamos os dados mostrados no formulário de comentários (como nome e e-mail), 
+            além do endereço de IP e de dados do navegador do visitante, para auxiliar 
+            na detecção de spam.
           </p>
 
-          <h2>3. Uso de Dados</h2>
+          <h2>3. Política de Cookies</h2>
+          <p>
+            Utilizamos cookies para melhorar a sua experiência em nosso blog. Você tem o 
+            controle sobre quais cookies deseja aceitar através do nosso aviso de privacidade 
+            no rodapé do site.
+          </p>
+          <ul>
+            <li><strong>Cookies Essenciais:</strong> São necessários para o funcionamento básico do site, como salvar suas preferências de privacidade ou manter seus dados preenchidos ao deixar comentários consecutivos.</li>
+            <li><strong>Cookies Analíticos:</strong> (Ex: Google Analytics) Nos ajudam a entender como você interage com o blog, quais posts são mais lidos e como podemos melhorar nosso conteúdo. Estes só são ativados com o seu consentimento explícito clicando em &#34;Aceitar Todos&#34;.</li>
+          </ul>
+
+          <h2>4. Uso e Retenção de Dados</h2>
           <p>
             Apenas retemos as informações coletadas pelo tempo necessário para
-            fornecer o serviço solicitado. Quando armazenamos dados, protegemos
-            dentro de meios comercialmente aceitáveis para evitar perdas e
-            roubos, bem como acesso, divulgação, cópia, uso ou modificação não
-            autorizados.
+            fornecer o serviço solicitado. Se você deixar um comentário, o comentário e os seus 
+            metadados são conservados indefinidamente. Fazemos isso para que seja possível reconhecer e aprovar 
+            automaticamente quaisquer comentários posteriores ao invés de retê-los numa fila de moderação.
           </p>
 
-          <h2>4. Compartilhamento de Dados</h2>
+          <h2>5. Compartilhamento de Dados</h2>
           <p>
             Não compartilhamos informações de identificação pessoal publicamente
-            ou com terceiros, exceto quando exigido por lei.
+            ou com terceiros, exceto quando exigido por lei ou em casos de ferramentas 
+            de detecção automática de spam.
           </p>
 
-          <h2>5. Links Externos</h2>
+          <h2>6. Links Externos</h2>
           <p>
             O nosso site pode ter links para sites externos que não são operados
             por nós. Esteja ciente de que não temos controle sobre o conteúdo e
@@ -56,14 +72,14 @@ export default function PrivacyPage() {
             suas respectivas políticas de privacidade.
           </p>
 
-          <h2>6. Seu Consentimento</h2>
+          <h2>7. Seu Consentimento</h2>
           <p>
             Você é livre para recusar a nossa solicitação de informações
-            pessoais, entendendo que talvez не possamos fornecer alguns dos
-            serviços desejados.
+            pessoais e uso de cookies, entendendo que talvez não possamos fornecer alguns dos
+            serviços desejados, como a publicação de comentários.
           </p>
 
-          <h2>7. Alterações na Política de Privacidade</h2>
+          <h2>8. Alterações na Política de Privacidade</h2>
           <p>
             O uso continuado de nosso site será considerado como aceitação de
             nossas práticas em torno de privacidade e informações pessoais. Se
