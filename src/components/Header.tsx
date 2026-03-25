@@ -34,6 +34,7 @@ const Header = () => {
     { name: "Journal", href: "/posts" },
     { name: "O Estúdio", href: "/sobre" },
     { name: "Procedimentos", href: "/procedimentos" },
+    { name: "Links", href: "/links" },
   ];
 
   return (
@@ -142,8 +143,9 @@ const Header = () => {
                 aria-label="Agendar"
                 variant="outline"
                 className="rounded-full border-garden-text/20 text-garden-text bg-transparent hover:bg-garden-text hover:text-garden-dark text-[9px] uppercase tracking-[0.2em] px-8 transition-all duration-500"
+                asChild
               >
-                Agendar
+                <Link href={"/links"}>Links</Link>
               </Button> */}
             </>
           )}
