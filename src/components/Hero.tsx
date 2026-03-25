@@ -59,7 +59,7 @@ export default function Hero({ featuredPost }: HeroProps) {
               {/* O arredondamento no topo (rounded-t-full) remete aos detalhes do seu portfólio */}
               <Image
                 src={featuredPost.coverImage as string}
-                alt="Editorial de Beleza"
+                alt={featuredPost.title}
                 fill
                 priority
                 className="object-cover transition-all duration-700 group-hover:scale-105"

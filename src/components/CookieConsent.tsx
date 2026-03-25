@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { X } from "lucide-react";
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,8 +34,17 @@ export default function CookieConsent() {
     // Como você usa o plugin tw-animate-css, adicionei um animate-fade-in (ajuste se a classe exata for diferente no seu plugin)
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 animate-fade-in">
       {/* Usando as suas cores do tema "Garden" e bordas do seu :root */}
-      <div className="mx-auto max-w-4xl rounded-xl border border-border bg-garden-dark p-6 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex-1 space-y-2">
+      <div className="relative mx-auto max-w-4xl rounded-xl border border-border bg-garden-dark p-6 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <Button className="absolute top-1 right-1"
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsVisible(false)}
+          aria-label="Fechar"
+        >
+          <X />
+        </Button>
+
+        <div className="flex-1 space-y-2 mt-2 md:mt-0">
           <h3 className="text-lg font-semibold text-garden-text">
             Nós valorizamos sua privacidade 🍪
           </h3>
