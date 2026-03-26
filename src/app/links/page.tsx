@@ -18,17 +18,17 @@ const links = [
   {
     text: "Portfólio Profissional: Totalmente editável no Canva",
     href: "https://pay.kiwify.com.br/GHLBoos",
-    icon: "/canva.ico",
+    icon: "/canva.webp",
   },
   {
     text: "Ficha de Avaliação Lash Lifting: Personalizável",
     href: "https://pay.kiwify.com.br/PpsF1pK",
-    icon: "/checklist.png",
+    icon: "/checklist.webp",
   },
   {
     text: "Seleção Carol Garden",
     href: "https://collshp.com/selecaocarolgarden?view=storefront",
-    icon: "/shopee.ico",
+    icon: "/shopee.webp",
   },
 ];
 
