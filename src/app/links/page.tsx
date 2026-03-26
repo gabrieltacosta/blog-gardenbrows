@@ -5,14 +5,15 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Links Oficiais | Garden Brows Studio",
-  description: "Acesse o e-book O Valor Que Comunica e fique por dentro das novidades de design de sobrancelhas e cílios.",
+  description:
+    "Acesse o e-book O Valor Que Comunica e fique por dentro das novidades de design de sobrancelhas e cílios.",
 };
 
 const links = [
   {
     text: "O Valor Que Comunica",
     href: "https://pay.kiwify.com.br/FC1R11X",
-    icon: "/e_books-20.webp",
+    icon: "/ebook.webp",
   },
   {
     text: "Portfólio Profissional: Totalmente editável no Canva",
@@ -34,7 +35,6 @@ const links = [
 export default function LinkPage() {
   return (
     <div className="bg-garden-dark min-h-screen pb-24 pt-32 px-6 md:px-12 flex flex-col items-center">
-      
       {/* Cabeçalho */}
       <div className="mb-10 text-center">
         <h1 className="font-serif text-3xl md:text-4xl text-garden-text font-light mb-2">
@@ -54,15 +54,15 @@ export default function LinkPage() {
             // h-auto e py-6 para que a altura do botão se adapte ao texto
             className="bg-garden-olive text-garden-text border border-white/5 shadow-xl shadow-black/40 py-6 px-6 h-auto rounded-xl transition-all duration-300 hover:scale-[1.02] hover:bg-garden-olive hover:brightness-110"
           >
-            <Link 
-              href={l.href} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <Link
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
               // Removido o items-center para garantir que o texto não fique espremido
               className="flex items-center justify-start w-full gap-4 no-underline"
             >
               {/* Container do Ícone */}
-              <div className="shrink-0 flex items-center justify-center bg-garden-dark/30 p-2 rounded-md">
+              <div className="shrink-0 flex items-center justify-center bg-garden-dark rounded-md p-2">
                 <Image
                   src={l.icon}
                   alt={`Ícone ${l.text}`}
