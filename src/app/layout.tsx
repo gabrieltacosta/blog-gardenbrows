@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Garden Brows Studio",
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: ${siteUrl},
   },
   description:
     "Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa..",
@@ -46,14 +46,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: siteUrl,
+    url: ${siteUrl},
     siteName: "Garden Brows Studio",
     title: "Garden Brows Studio | Carolina Costa",
     description:
       "Realçando a sua beleza natural com propósito e fé. Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
     images: [
       {
-        url: "/og-logo.png",
+        url: `${siteUrl}/og-logo.png`,
         width: 1200,
         height: 630,
         alt: "Garden Brows Studio Logotipo",
