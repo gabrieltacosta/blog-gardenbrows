@@ -12,21 +12,17 @@ import { ptBR } from "date-fns/locale";
 import RelatedPosts from "@/components/RelatedPosts";
 import Link from "next/link";
 import { cache } from "react";
+import CommentSection from "@/components/CommentSection";
 
 export const revalidate = 3600; // 1 hora
 
-const getCachedPublishedPosts = cache(
-  async () => fetchPublishedPosts(),
-);
+const getCachedPublishedPosts = cache(async () => fetchPublishedPosts());
 
-const getCachedPost = cache(
-  async (slug: string) => {
-    const posts = await getCachedPublishedPosts();
-    const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
-    return allPosts.find((p) => p?.slug === slug);
-  },
-);
-
+const getCachedPost = cache(async (slug: string) => {
+  const posts = await getCachedPublishedPosts();
+  const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
+  return allPosts.find((p) => p?.slug === slug);
+});
 
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
@@ -52,7 +48,8 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
 
   return {
     title: post.title,
@@ -110,7 +107,8 @@ export default async function PostPage({
 
   if (!post) notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -214,6 +212,7 @@ export default async function PostPage({
             </div>
           </div>
         </div>
+        <CommentSection postSlug={post.slug} />
         <div className="max-w-4xl mx-auto px-6 pb-24">
           <RelatedPosts
             currentPostId={post.id}
