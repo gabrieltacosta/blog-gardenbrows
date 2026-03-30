@@ -25,37 +25,51 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Garden Brows Studio | Por Carolina Costa",
+    default: "Garden Brows Studio | Por Carol Garden",
     template: "%s | Garden Brows Studio",
   },
   alternates: {
     canonical: siteUrl,
   },
   description:
-    "Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa..",
+    "Explore o Journal da Garden Brows. Tendências de Lash Lifting, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa..",
   keywords: [
     "Design de Sobrancelhas",
-    "Lash Lift São Paulo",
+    "Lash Lifting",
+    "Lash Lifting São José dos Campos",
+    "LASH LIFTING E SOBRANCELHAS SJC",
     "Carolina Costa",
     "Carol Garden",
     "Micropigmentação Labial",
-    "Beleza Católica",
+    "Beleza Natural",
   ],
   authors: [{ name: "Carolina Costa" }],
-  creator: "Carolina Costa",
+  creator: "Gabriel Costa",
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: ${siteUrl},
+    url: siteUrl,
     siteName: "Garden Brows Studio",
-    title: "Garden Brows Studio | Carolina Costa",
+    title: "Garden Brows Studio | Carol Garden",
     description:
-      "Realçando a sua beleza natural com propósito e fé. Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
+      "Realçando a sua beleza natural com propósito e fé. Explore o Journal da Garden Brows. Tendências de Lash Lifting, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
     images: [
       {
         url: `${siteUrl}/og-logo.png`,
         width: 1200,
         height: 630,
+        alt: "Garden Brows Studio Logotipo",
+      },
+      {
+        url: `${siteUrl}/logo-192x192.png`,
+        width: 192,
+        height: 192,
+        alt: "Garden Brows Studio Logotipo",
+      },
+      {
+        url: `${siteUrl}/logo-512x512.png`,
+        width: 512,
+        height: 512,
         alt: "Garden Brows Studio Logotipo",
       },
     ],
@@ -64,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Studio Garden Brows",
     description:
-      "Realçando a sua beleza natural com propósito e fé. Explore o Journal da Garden Brows. Tendências de Lash Lift, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
+      "Realçando a sua beleza natural com propósito e fé. Explore o Journal da Garden Brows. Tendências de Lash Lifting, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa.",
     images: [`${siteUrl}/og-logo.png`],
     creator: "@acarolgarden",
     site: "@acarolgarden",
