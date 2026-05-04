@@ -15,7 +15,7 @@ const procedimentos = [
     details: ["Mapeamento Geométrico", "Simetria Facial", "Pinçamento de Alta Precisão"]
   },
   {
-    title: "Lash Lift",
+    title: "Lash Lifting",
     description: "Curvatura e hidratação dos seus cílios naturais, proporcionando um efeito de máscara sem extensões artificiais.",
     image: "/lashlifting.webp",
     details: ["Efeito Curvado Natural", "Nutrição com Vitaminas", "Durabilidade de 6 a 8 semanas"]
