@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   description:
     "Explore o Journal da Garden Brows. Tendências de Lash Lifting, Design de Sobrancelhas, Micropigmentação e rituais de beleza natural por Carolina Costa..",
   keywords: [
+    "lash lifting sjc",
     "Design de Sobrancelhas",
     "Lash Lifting",
     "Lash Lifting São José dos Campos",
