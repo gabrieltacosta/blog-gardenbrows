@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@/components/Analytics";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -121,7 +121,7 @@ export default function RootLayout({
         <main className="grow">{children}</main>
         <Footer />
         <CookieConsent />
-        <GoogleAnalytics gaId="G-P8RW64Y59Y" />
+        <Analytics />
       </body>
     </html>
   );
