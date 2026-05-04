@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export default function Analytics() {
   const [hasConsent, setHasConsent] = useState(false);
