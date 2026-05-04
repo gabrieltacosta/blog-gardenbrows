@@ -49,6 +49,12 @@ export default function Footer() {
                 Journal
               </Link>
               <Link
+                href="/links"
+                className="hover:text-garden-text transition-colors"
+              >
+                Links
+              </Link>
+              <Link
                 href="/sobre"
                 className="hover:text-garden-text transition-colors"
               >
