@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
-import { Analytics } from "@/components/Analytics";
+import Analytics from "@/components/Analytics";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
