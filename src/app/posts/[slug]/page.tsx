@@ -49,7 +49,7 @@ export async function generateMetadata({
   }
 
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://gardenbrows.com.br";
 
   return {
     title: post.title,
@@ -58,7 +58,7 @@ export async function generateMetadata({
       ...(post.tags || []),
       post.category || "Beleza",
       "Garden Brows Studio",
-      "Carolina Costa",
+      "Carol Garden",
       "Crônicas de Beleza",
       "Lifestyle",
     ],
@@ -108,7 +108,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://blog.gardenbrows.com.br";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://gardenbrows.com.br";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -119,7 +119,7 @@ export default async function PostPage({
     datePublished: new Date(post.date).toISOString(),
     author: {
       "@type": "Person",
-      name: post.author || "Carolina Costa",
+      name: post.author || "Carol Garden",
       url: `${siteUrl}/sobre`,
     },
     publisher: {
