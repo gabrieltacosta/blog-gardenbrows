@@ -26,15 +26,6 @@ export default function Analytics() {
 
   // Se tem consentimento, injeta os scripts do Google Analytics (ou Meta Pixel, etc.)
   return (
-    <>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8RW64Y59Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)}
-  gtag('js', new Date());
-
-  gtag('config', 'G-P8RW64Y59Y');
-</script>
-    </>
+    <GoogleAnalytics gaId="G-P8RW64Y59Y" />
   );
 }
