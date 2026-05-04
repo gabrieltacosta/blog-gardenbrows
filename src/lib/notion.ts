@@ -92,7 +92,7 @@ export async function getPost(pageId: string): Promise<Post | null> {
       author:
         properties.Author?.people[0]?.name ||
         properties.Author?.rich_text?.[0]?.plain_text ||
-        "Carolina Costa",
+        "Carol Garden",
       tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
       category: properties.Category?.select?.name || "Lifestyle",
     };
