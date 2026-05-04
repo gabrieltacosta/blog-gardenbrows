@@ -34,6 +34,7 @@ const Header = () => {
     { name: "Journal", href: "/posts" },
     { name: "O Estúdio", href: "/sobre" },
     { name: "Procedimentos", href: "/procedimentos" },
+    { name: "Categorias" , href: "/categorias" },
     { name: "Links", href: "/links" },
   ];
 
