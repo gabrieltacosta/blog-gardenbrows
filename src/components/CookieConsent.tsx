@@ -24,6 +24,7 @@ export default function CookieConsent() {
     if (type === "all") {
       // DICA: É aqui que você dispararia o evento para carregar o Google Analytics
       // Exemplo: window.dispatchEvent(new Event("accept_all_cookies"));
+      window.dispatchEvent(new Event("consent_granted"));
     }
   };
 
