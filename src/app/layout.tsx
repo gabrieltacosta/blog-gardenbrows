@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
-import Analytics from "@/components/Analytics"
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -113,9 +113,6 @@ export default function RootLayout({
       className={cn(playfair.variable, montserrat.variable)}
       suppressHydrationWarning
     >
-      <head>
-        <Analytics />
-      </head>
       <body
         className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
         cz-shortcut-listen="true"
@@ -124,6 +121,7 @@ export default function RootLayout({
         <main className="grow">{children}</main>
         <Footer />
         <CookieConsent />
+        <GoogleAnalytics gaId="G-P8RW64Y59Y" />
       </body>
     </html>
   );
