@@ -113,6 +113,9 @@ export default function RootLayout({
       className={cn(playfair.variable, montserrat.variable)}
       suppressHydrationWarning
     >
+      <head>
+        <Analytics />
+      </head>
       <body
         className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
         cz-shortcut-listen="true"
@@ -121,7 +124,6 @@ export default function RootLayout({
         <main className="grow">{children}</main>
         <Footer />
         <CookieConsent />
-        <Analytics />
       </body>
     </html>
   );
