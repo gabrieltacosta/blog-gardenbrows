@@ -33,7 +33,7 @@ const formSchema = z.object({
   content: z
     .string()
     .min(5, { message: "O comentário é muito curto." })
-    .max(100, { message: "O comentário deve ter no máximo 100 caracteres." }),
+    .max(200, { message: "O comentário deve ter no máximo 200 caracteres." }),
   consent: z.boolean().refine((val) => val === true, {
     message: "Você precisa aceitar a Política de Privacidade.",
   }),
