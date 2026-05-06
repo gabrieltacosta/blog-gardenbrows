@@ -39,7 +39,7 @@ export default async function CategoriesPage() {
     .map(([name, count]) => ({
       name,
       count,
-      slug: generateSlug(name),
+      slug: name,
     }))
     .sort((a, b) => b.count - a.count);
 
