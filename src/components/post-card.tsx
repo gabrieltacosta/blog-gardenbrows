@@ -3,7 +3,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Post, getWordCount } from "@/lib/notion";
-import { calculateReadingTime } from "@/lib/utils";
+import { calculateReadingTime, generateSlug } from "@/lib/utils"; // <-- 1. Importado generateSlug
 import { cn } from "@/lib/utils";
 
 interface PostCardProps {
@@ -42,7 +42,8 @@ export default function PostCard({ post, className }: PostCardProps) {
         {/* Badge de Categoria - AGORA CLICÁVEL */}
         {post.category && (
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 overflow-hidden z-10">
-            <Link href={`/categorias/${encodeURIComponent(post.category.toLowerCase())}`}>
+            {/* 2. Link da Categoria usando generateSlug */}
+            <Link href={`/categorias/${generateSlug(post.category)}`}>
               <span className="bg-garden-dark/60 px-4 py-1.5 text-[9px] uppercase tracking-[0.2em] text-garden-text backdrop-blur-md hover:bg-garden-text hover:text-garden-dark transition-all duration-300 cursor-pointer">
                 {post.category}
               </span>
@@ -59,7 +60,8 @@ export default function PostCard({ post, className }: PostCardProps) {
           <span>{readingTime}</span>
         </div>
 
-        <Link href={`/posts/${encodeURIComponent(post.slug.toLowerCase())}`}>
+        {/* 3. Link do Post padronizado apenas com o slug */}
+        <Link href={`/posts/${post.slug}`}>
           <h2 className="font-serif text-2xl font-light leading-tight text-garden-text">
             {post.title}
           </h2>
@@ -73,9 +75,10 @@ export default function PostCard({ post, className }: PostCardProps) {
         {post.tags && post.tags.length > 0 && (
           <div className="mt-2 flex flex-wrap justify-center gap-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500">
             {post.tags.slice(0, 3).map((tag) => (
+              /* 4. Link das Tags usando generateSlug */
               <Link 
                 key={tag} 
-                href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                href={`/tags/${generateSlug(tag)}`}
                 className="hover:text-garden-text transition-colors"
               >
                 <span className="text-[9px] text-garden-text/30 uppercase tracking-tighter hover:text-garden-text/60">
