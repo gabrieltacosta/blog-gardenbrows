@@ -10,8 +10,8 @@ const getCachedPublishedPosts = cache(
 );
 
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const { category: categoryParam } = await params;
-  const category = decodeURIComponent(categoryParam);
+  const { category } = await params;
+
 
   const response = await getCachedPublishedPosts();
   const allPosts = await Promise.all(
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
       "Beleza com Propósito",
     ],
     alternates: {
-      canonical: `/categorias/${categoryParam}`,
+      canonical: `/categorias/${category}`,
     },
     openGraph: {
       title: `Categoria: ${category} | Garden Brows`,
@@ -62,13 +62,12 @@ export async function generateStaticParams() {
   return Array.from(categories)
     .filter((c): c is string => !!c)
     .map((c) => ({
-      category: encodeURIComponent(c.toLowerCase()),
+      category: c,
     }));
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category: categoryFromParams } = await params;
-  const category = decodeURIComponent(categoryFromParams);
+  const { category } = await params;
   const response = await getCachedPublishedPosts();
 
   const allPosts = await Promise.all(
