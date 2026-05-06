@@ -39,7 +39,6 @@ export default async function CategoriesPage() {
     .map(([name, count]) => ({
       name,
       count,
-      slug: name,
     }))
     .sort((a, b) => b.count - a.count);
 
@@ -66,8 +65,8 @@ export default async function CategoriesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category) => (
               <Link
-                key={category.slug}
-                href={`/categorias/${encodeURIComponent(category.slug.toLowerCase())}`}
+                key={category.name}
+                href={`/categorias/${encodeURIComponent(category.name.toLowerCase())}`}
                 className="group relative flex flex-col justify-between p-8 rounded-2xl bg-garden-dark/40 border border-border/40 hover:border-garden-olive transition-all duration-300 hover:shadow-lg hover:shadow-garden-olive/5 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Efeito de brilho sutil no hover usando as suas cores */}
