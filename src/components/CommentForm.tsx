@@ -6,8 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import Link from "next/link";
 import { submitComment } from "@/app/actions/comment";
-
-// Importações do Shadcn UI
 import { Button } from "@/components/ui/button";
 import {
   Field,
