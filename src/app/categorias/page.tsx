@@ -67,7 +67,7 @@ export default async function CategoriesPage() {
             {categories.map((category) => (
               <Link
                 key={category.slug}
-                href={`/categorias/${category.slug}`}
+                href={`/categorias/${encodeURIComponent(category.slug.toLowerCase())}`}
                 className="group relative flex flex-col justify-between p-8 rounded-2xl bg-garden-dark/40 border border-border/40 hover:border-garden-olive transition-all duration-300 hover:shadow-lg hover:shadow-garden-olive/5 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Efeito de brilho sutil no hover usando as suas cores */}
