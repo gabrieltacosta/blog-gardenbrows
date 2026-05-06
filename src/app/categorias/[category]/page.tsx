@@ -15,7 +15,9 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const allPosts = await Promise.all(response.results.map((post) => getPost(post.id)));
 
   // Encontramos o post para recuperar o nome real da categoria (para o título)
-  const firstPost = allPosts.find(post => post && generateSlug(post.category) === categorySlug);
+  const firstPost = allPosts.find(
+    (post) => post && post.category && generateSlug(post.category) === categorySlug
+  );
   const categoryDisplayName = firstPost?.category || categorySlug;
 
   return {
@@ -51,7 +53,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filtramos comparando Slugs
   const filteredPosts = allPosts.filter(
-    (post) => post && generateSlug(post.category) === categorySlug
+    (post) => post && post.category && generateSlug(post.category) === categorySlug
   );
 
   if (filteredPosts.length === 0) return notFound();
