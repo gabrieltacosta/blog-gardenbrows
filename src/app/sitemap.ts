@@ -1,7 +1,9 @@
 import { MetadataRoute } from "next";
 import { fetchPublishedPosts, getPost } from "@/lib/notion";
+import { generateSlug } from "@/lib/utils"; // 1. Importando o helper
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Certifique-se de que a variável de ambiente está apontando para seu domínio final (https://www.gardenbrows.com.br)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   const response = await fetchPublishedPosts();
@@ -19,29 +21,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // 2. URLs de Categorias - Adicionado .filter(Boolean) para remover undefined
+  // 2. URLs de Categorias - Removido o .toLowerCase() inicial para deixar o generateSlug tratar
   const categories = Array.from(
-    new Set(activePosts.map((p) => p?.category?.toLowerCase()).filter(Boolean)),
-  );
+    new Set(activePosts.map((p) => p?.category).filter(Boolean)),
+  ) as string[];
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${baseUrl}/categorias/${encodeURIComponent(cat!.toLowerCase())}`,
+    url: `${baseUrl}/categorias/${generateSlug(cat)}`, // 2. Usando generateSlug
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.5,
   }));
 
-  // 3. URLs de Tags - Adicionado .filter(Boolean) para garantir que não existam tags vazias
+  // 3. URLs de Tags - Aplicando a mesma lógica de slugs para consistência
   const tags = Array.from(
     new Set(
       activePosts
-        .flatMap((p) => p?.tags?.map((t) => t.toLowerCase()) || [])
+        .flatMap((p) => p?.tags || [])
         .filter(Boolean),
     ),
-  );
+  ) as string[];
 
   const tagEntries: MetadataRoute.Sitemap = tags.map((tag) => ({
-    url: `${baseUrl}/tags/${encodeURIComponent(tag!.toLowerCase())}`,
+    url: `${baseUrl}/tags/${generateSlug(tag)}`, // 3. Usando generateSlug
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.5,
