@@ -2,6 +2,7 @@ import { fetchPublishedPosts, getPost, Post } from "@/lib/notion";
 import PostCard from "@/components/post-card";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { generateSlug } from "@/lib/utils"; // 1. Importando o helper
 
 export const revalidate = 3600; // 1 hora
 
@@ -10,35 +11,36 @@ const getCachedPublishedPosts = cache(
 );
 
 export async function generateMetadata({ params }: TagsPageProps) {
-  const { tag: tagParam } = await params;
-  const tag = decodeURIComponent(tagParam); // Sempre decodifique para o título ficar bonito
+  const { tag: tagSlug } = await params;
 
   const posts = await getCachedPublishedPosts();
   const allPosts = await Promise.all(
     posts.results.map((post) => getPost(post.id)),
   );
 
-  // Filtra os posts que contém a tag
+  // 2. Filtra os posts comparando o slug da tag
   const taggedPosts = allPosts.filter(
     (post): post is Post =>
       post !== null &&
-      (post.tags?.some((t) => t.toLowerCase() === tag.toLowerCase()) ?? false),
+      (post.tags?.some((t) => generateSlug(t) === tagSlug) ?? false),
   );
 
-  // Pegamos o primeiro post apenas para usar a imagem de capa no OpenGraph (opcional)
   const firstPost = taggedPosts[0];
+  
+  // 3. Resgata o nome original da tag (com letras maiúsculas, etc.) para os metadados
+  const originalTag = firstPost?.tags?.find(t => generateSlug(t) === tagSlug) || tagSlug;
 
   return {
-    title: `${tag.charAt(0).toUpperCase() + tag.slice(1)} | Journal Garden Brows`,
-    description: `Explore todas as nossas publicações e crônicas sobre ${tag}. Conteúdo exclusivo do Studio Garden Brows.`,
-    keywords: [tag, "Garden Brows", "Beleza Natural", "Journal"],
+    title: `${originalTag.charAt(0).toUpperCase() + originalTag.slice(1)} | Journal Garden Brows`,
+    description: `Explore todas as nossas publicações e crônicas sobre ${originalTag}. Conteúdo exclusivo do Studio Garden Brows.`,
+    keywords: [originalTag, "Garden Brows", "Beleza Natural", "Journal"],
     alternates: {
-      canonical: `/tags/${tagParam}`,
+      canonical: `/tags/${tagSlug}`, // O canonical agora usa o slug limpo
     },
     openGraph: {
-      title: `Assunto: ${tag} | Garden Brows`,
-      description: `Confira nossos ${taggedPosts.length} artigos sobre ${tag}.`,
-      images: [firstPost?.coverImage || ""], // Pega a capa do post mais recente da tag
+      title: `Assunto: ${originalTag} | Garden Brows`,
+      description: `Confira nossos ${taggedPosts.length} artigos sobre ${originalTag}.`,
+      images: [firstPost?.coverImage || ""],
     },
   };
 }
@@ -49,32 +51,35 @@ interface TagsPageProps {
   }>;
 }
 
-
-
 export async function generateStaticParams() {
   const posts = await getCachedPublishedPosts();
   const allPosts = await Promise.all(posts.results.map((p) => getPost(p.id)));
   const tags = new Set(allPosts.flatMap((p) => p?.tags || []));
+  
+  // 4. Gera as rotas estáticas usando o slug
   return Array.from(tags).map((t) => ({
-    tag: encodeURIComponent(t.toLowerCase()),
+    tag: generateSlug(t),
   }));
 }
 
 export default async function TagPage({ params }: TagsPageProps) {
-  const { tag: tagFromParams } = await params;
-  const tag = decodeURIComponent(tagFromParams);
+  const { tag: tagSlug } = await params;
   const response = await getCachedPublishedPosts();
 
   const allPosts = await Promise.all(
     response.results.map((post) => getPost(post.id)),
   );
 
+  // 5. Filtra pelo slug na renderização da página
   const filteredPosts = allPosts.filter(
     (post) =>
-      post && post.tags?.some((t) => t.toLowerCase() === tag.toLowerCase()),
+      post && post.tags?.some((t) => generateSlug(t) === tagSlug),
   );
 
   if (filteredPosts.length === 0) return notFound();
+
+  // 6. Resgata o nome bonito para mostrar no H1
+  const displayTag = filteredPosts[0]?.tags?.find(t => generateSlug(t) === tagSlug) || tagSlug;
 
   return (
     <div className="bg-garden-dark min-h-screen pt-32 pb-24 px-6 md:px-12">
@@ -84,7 +89,7 @@ export default async function TagPage({ params }: TagsPageProps) {
             Assunto Relacionado
           </span>
           <h1 className="font-serif text-5xl md:text-7xl text-garden-text font-light italic">
-            #{tag}
+            #{displayTag}
           </h1>
         </header>
 
