@@ -2,9 +2,9 @@
 
 import { addCommentToNotion } from "@/lib/notion";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { z } from "zod";
 
-// 1. Replicamos o Schema do Zod no backend para dupla segurança
 const commentSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -16,14 +16,33 @@ const commentSchema = z.object({
 });
 
 export async function submitComment(data: z.infer<typeof commentSchema>) {
-  // 2. Valida os dados no servidor (segurança contra bots que burlam o frontend)
   const parsedData = commentSchema.safeParse(data);
 
   if (!parsedData.success) {
     return { error: "Dados inválidos." };
   }
 
-  const result = await addCommentToNotion(parsedData.data);
+  const headersList = await headers(); 
+  
+  // 1. Tenta pegar o IP direto do Cloudflare (Mais seguro)
+  let ipUsuario = headersList.get("cf-connecting-ip");
+  
+  // 2. Se não estiver passando pelo Cloudflare, tenta as alternativas padrões
+  if (!ipUsuario) {
+    const forwardedFor = headersList.get("x-forwarded-for");
+    if (forwardedFor) {
+      ipUsuario = forwardedFor.split(",")[0].trim();
+    } else {
+      ipUsuario = headersList.get("x-real-ip") || "IP desconhecido";
+    }
+  }
+
+  const dataWithIp = {
+    ...parsedData.data,
+    ip: ipUsuario,
+  };
+
+  const result = await addCommentToNotion(dataWithIp);
 
   if (result.success) {
     revalidatePath(`/posts/${parsedData.data.postSlug}`);
