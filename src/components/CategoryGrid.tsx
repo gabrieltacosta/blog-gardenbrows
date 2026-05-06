@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { generateSlug } from "@/lib/utils";
 
 const categories = [
   {
@@ -56,7 +57,7 @@ export default function CategoryGrid() {
           {categories.map((cat) => (
             <Link
               key={cat.slug}
-              href={`/categorias/${encodeURIComponent(cat.slug.toLowerCase())}`}
+              href={`/categorias/${generateSlug(cat.slug)}`}
               className="group flex flex-col items-center text-center"
             >
               {/* Círculo com a Imagem - Efeito Portal */}
