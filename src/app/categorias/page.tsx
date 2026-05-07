@@ -67,7 +67,7 @@ export default async function CategoriesPage() {
               <Link
                   key={category.name}
                   href={`/categorias/${generateSlug(category.name)}`} // <--- Mudança aqui
-                  className="group relative flex flex-col justify-between p-8 ..."
+                  className="group relative flex flex-col justify-between p-8 rounded-2xl bg-garden-dark/40 border border-border/40 hover:border-garden-olive transition-all duration-300 hover:shadow-lg hover:shadow-garden-olive/5 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Efeito de brilho sutil no hover usando as suas cores */}
                 <div className="absolute inset-0 bg-gradient-to-br from-garden-olive/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
