@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
+import AdSense from "@/components/google/AdSense";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -115,9 +116,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1736626836902392"
-          crossorigin="anonymous">
-        </script>
+        <AdSense pId={process.env.NEXT_PUBLIC_AD_SENSE_ID as string} />
       </head>
       <body
         className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
