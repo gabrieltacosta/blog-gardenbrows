@@ -114,6 +114,11 @@ export default function RootLayout({
       className={cn(playfair.variable, montserrat.variable)}
       suppressHydrationWarning
     >
+      <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1736626836902392"
+          crossorigin="anonymous">
+        </script>
+      </head>
       <body
         className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
         cz-shortcut-listen="true"
