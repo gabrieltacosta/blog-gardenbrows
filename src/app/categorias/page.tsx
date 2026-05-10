@@ -5,7 +5,7 @@ import { generateSlug } from "@/lib/utils"; // Utilizando o mesmo helper do seu 
 import { cache } from "react";
 
 export const metadata: Metadata = {
-  title: "Categorias | Garden Brows Studio",
+  title: "Categorias",
   description: "Explore nossos artigos por categoria e encontre os melhores conteúdos sobre design de sobrancelhas e cílios.",
 };
 
