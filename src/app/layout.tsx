@@ -48,6 +48,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Carolina Costa" }],
   creator: "Gabriel Costa",
+  applicationName: "Garden Brows Studio",
+  category: "beauty",
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -115,18 +117,16 @@ export default function RootLayout({
       className={cn(playfair.variable, montserrat.variable)}
       suppressHydrationWarning
     >
-      <head>
-        <AdSense pId={process.env.NEXT_PUBLIC_AD_SENSE_ID as string} />
-      </head>
+      
       <body
-        className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text antialiased"
-        cz-shortcut-listen="true"
+        className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text
       >
         <Header />
         <main className="grow">{children}</main>
         <Footer />
         <CookieConsent />
         <Analytics />
+        <AdSense pId={process.env.NEXT_PUBLIC_AD_SENSE_ID as string} />
       </body>
     </html>
   );
