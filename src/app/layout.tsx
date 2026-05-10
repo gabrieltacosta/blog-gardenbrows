@@ -119,14 +119,14 @@ export default function RootLayout({
     >
       
       <body
-        className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text
+        className="min-h-full flex flex-col font-sans bg-garden-dark text-garden-text"
       >
+        <AdSense pId={process.env.NEXT_PUBLIC_AD_SENSE_ID as string} />
         <Header />
         <main className="grow">{children}</main>
         <Footer />
         <CookieConsent />
         <Analytics />
-        <AdSense pId={process.env.NEXT_PUBLIC_AD_SENSE_ID as string} />
       </body>
     </html>
   );
