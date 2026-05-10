@@ -1,15 +1,21 @@
-type AdSenseTypes = {
-  pId: string;
-};
+"use client";
 
-const AdSense = ({ pId }: AdSenseTypes) => {
+import Script from "next/script";
+
+interface Props {
+  pId: string;
+}
+
+export default function AdSense({ pId }: Props) {
+  if (!pId) return null;
+
   return (
-    <script
+    <Script
+      id="google-adsense"
       async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pId}`}
+      strategy="afterInteractive"
       crossOrigin="anonymous"
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pId}`}
     />
   );
-};
-
-export default AdSense;
+}
