@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
-import { calculateReadingTime } from "@/lib/utils";
+import { calculateReadingTime, generateSlug } from "@/lib/utils";
 import { components } from "@/components/mdx-component";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -203,7 +203,7 @@ export default async function PostPage({
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {post.tags?.map((tag) => (
-                <Link key={tag} href={`/tags/${tag}`}>
+                <Link key={tag} href={`/tags/${generateSlug(tag)}`}>
                   <span className="text-[10px] uppercase tracking-widest border border-garden-text/20 px-4 py-2 rounded-full hover:bg-garden-text hover:text-garden-dark transition-all">
                     #{tag}
                   </span>
