@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const categoryDisplayName = firstPost?.category || categorySlug;
 
   return {
-    title: `${categoryDisplayName.charAt(0).toUpperCase() + categoryDisplayName.slice(1)} | Garden Brows`,
+    title: `${categoryDisplayName.charAt(0).toUpperCase() + categoryDisplayName.slice(1)}`,
     description: `Descubra tudo sobre ${categoryDisplayName} no Journal do Studio Garden Brows.`,
     alternates: { canonical: `/categorias/${categorySlug}` },
     openGraph: {
