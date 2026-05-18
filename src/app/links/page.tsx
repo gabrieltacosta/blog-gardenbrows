@@ -27,11 +27,6 @@ const links = [
     href: "https://pay.kiwify.com.br/PpsF1pK",
     icon: "/checklist.webp",
   },
-  {
-    text: "Seleção Carol Garden",
-    href: "https://collshp.com/selecaocarolgarden?view=storefront",
-    icon: "/shopee.webp",
-  },
 ];
 
 export default function LinkPage() {
