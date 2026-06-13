@@ -1,5 +1,6 @@
 import { Instagram, Mail } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image"
 
 export const metadata = {
   title: "Agendamento e Concierge",
@@ -92,7 +93,13 @@ export default function ContactPage() {
         <div className="relative aspect-square md:aspect-auto overflow-hidden rounded-b-full border border-garden-text/5">
           {/* Aqui você pode colocar um Iframe do Google Maps com filtro CSS para ficar Dark ou uma foto do Studio */}
           <div className="w-full h-full bg-garden-olive/10 flex items-center justify-center italic text-garden-text/20 font-serif">
-            [ Foto do Estúdio Garden Brows ]
+            {/* <Image
+              src="/studio.webp" // Foto do Studio
+              alt="Foto do Studio"
+              fill
+              className="object-cover"
+            /> */}
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.1253178660722!2d-45.88759792468063!3d-23.202103179048287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc4bf07cfb7967%3A0xf72fead831d32631!2sStudio%20Garden%20Brows!5e0!3m2!1spt-BR!2sbr!4v1781353726792!5m2!1spt-BR!2sbr" width="600" height="450" loading="lazy"></iframe>
           </div>
         </div>
       </div>
